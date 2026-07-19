@@ -1,5 +1,4 @@
 # Recipe Output — Word (.docx) Cooking Sheet Protocol (v1.0)
-<!-- queue-drain smoke test OK · 2026-07-18 · safe to delete -->
 
 > Companion to `recipe_output_html_protocol.md`. Apply when the user requests a Word document, a "document," or an export to Word.
 > Governance rules that are format-independent live in `recipe_governance_core.md` Section XI-B and govern this file.
