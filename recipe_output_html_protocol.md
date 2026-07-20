@@ -1,4 +1,4 @@
-# Recipe Output — HTML Cooking Sheet Protocol (v1.2)
+# Recipe Output — HTML Cooking Sheet Protocol (v1.3)
 
 > Apply when the user requests a cooking sheet, print version, or an HTML export.
 > For Word documents — including any bare "generate the document" request — use `recipe_output_docx_protocol.md` instead. See `recipe_governance_core.md` Section XI-B for the format-trigger table.
@@ -419,3 +419,17 @@ Format: DD Month YYYY (e.g., 26 May 2026).
 - [ ] Date hardcoded in header and footer
 - [ ] Page structure verified on render — every `.page` div carries real content; no empty pages produced by over-eager page assignment
 - [ ] No literal markdown characters in rendered output (apply emphasis via HTML/CSS, not `**`/`*`)
+
+
+---
+
+## Build & Render Verification
+
+Before delivery:
+
+1. Render the HTML to PDF or an equivalent A4 print preview using the final print CSS.
+2. Inspect every rendered page for overflow, clipping, blank pages, orphaned headings, split table rows, illegible text, and missing running headers or footers.
+3. Reflow content or add page containers; do not solve overflow by shrinking body text below the protocol minimums.
+4. Confirm the file remains legible if external fonts fail and the fallback stack is used.
+
+Do not deliver until the rendered output passes.

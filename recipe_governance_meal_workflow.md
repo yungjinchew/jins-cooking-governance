@@ -104,15 +104,18 @@ Quantity reconciliation: Before finalizing, verify that every Shared Prep total 
 
 The printed cooking sheet for multi-component meals follows the per-dish format and governance rules in `recipe_governance_core.md` Section XI-B, with the additions and compressions below specific to multi-component output.
 
-**Default format: HTML.** Full layout, typography, color, and print CSS specifications are in `recipe_output_html_protocol.md`. Apply that file for all cooking sheet generation. Word (.docx) remains available on explicit request.
+**Format routing:** Apply Core Section XI-B. A "cooking sheet" or "printable version" request defaults to HTML; a "document," "Word," or "docx" request uses Word. Apply the corresponding protocol file in full.
 
 ---
 
 ### Page Order
 
-1. Title + menu overview (bullet list of dishes)
-2. T-minus timeline + workflow notes
+**HTML:**
+1. Title + menu overview + Shared Prep + Shopping List
+2. T-minus timeline + workflow notes + Holding Chain
 3. Individual dishes in service order
+
+**Word:** Follow the page assignments in `recipe_output_docx_protocol.md`.
 
 ---
 

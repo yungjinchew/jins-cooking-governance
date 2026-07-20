@@ -51,6 +51,8 @@ For each row, in order:
 
 A failed anchor usually means the proposal was written against a stale version of the file.
 
+**Markdown fidelity (Notion round-trip):** Notion text properties strip backticks and bold/emphasis markers from Anchor Text and New Text on save, so an anchor that must match a backticked or bolded line reads as plain text and fails. Prefer anchoring on plain lines (no backticks or `**`). Where a change must carry backticks, headings, or list markers in its New Text, Cowork applies it directly from the row's intent with correct markdown and records it Applied — for such rows the corrupted Notion field is not authoritative.
+
 ### 4. Bump versions
 
 Where **Version After** is set, update:

@@ -5,6 +5,8 @@
 > Add `recipe_governance_vault_signals.md` when a Vault digest is active or Notion/Recipe Vault retrieval is used to shape a recipe.
 > Add `recipe_governance_vault_ops.md` only when creating, updating, or preparing a Vault entry.
 > Add `recipe_output_docx_protocol.md` when generating a Word document, or `recipe_output_html_protocol.md` when generating an HTML cooking sheet.
+>
+> **Governance snapshot consistency:** Fetch the manifest once, load every required file, then re-fetch the manifest before applying the rules. If `framework_version` or `updated` changed during loading, discard the mixed set and reload. Never combine files from different manifest snapshots; if any required file cannot be fetched, state the incomplete load and do not claim full-framework compliance.
 
 ---
 
