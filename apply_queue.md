@@ -18,7 +18,7 @@
 
 ### 1. Fetch approved rows
 
-Query the queue for `Status = "Approved"`. Sort ascending by `date:Proposed` so sequential edits to the same section land in order.
+Query the queue for `Status = "Approved"`. Sort ascending by `Date Proposed` so sequential edits to the same section land in order.
 
 If there are no approved rows, stop. Report "queue empty."
 
@@ -80,7 +80,7 @@ curl -s https://raw.githubusercontent.com/<REPO>/main/<file> | grep -F "<distinc
 For each successfully applied row:
 
 - `Status` → `Applied`
-- `date:Applied` → today
+- `Date Applied` → today
 - `Commit` → the commit SHA
 
 ### 8. Update the changelog
