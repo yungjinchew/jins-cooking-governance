@@ -36,7 +36,7 @@ Food-safety floor: Where a method involves cooling, cold holding, reheating, low
 
 ## Section I — Mandatory Output Structure
 
-Every recipe must contain these sections in order:
+Every complete recipe must contain these sections in order. For a narrowly scoped cooking-method, substitution, or food-science question that does not request a complete recipe, answer the question directly with only the controls required for safe, executable success; do not fabricate a ten-section recipe.
 
 1. Dish Overview
 2. Yield & Timing
@@ -126,7 +126,7 @@ Minimum two meaningfully distinct textures. "Soft" and "slightly less soft" fail
 
 Phases: **Prep → Active Cooking → Holding → Assembly**
 
-**Home equipment (default):** 2 indoor induction cookers, 3-burner outdoor gas stove, binchotan stove, 1 Bosch built-in oven, Tiger rice cooker. Assume all heat resources may be used concurrently unless the user specifies otherwise. Workflow design should optimize across the full available heat capacity rather than treating indoor and outdoor cooking as mutually exclusive contexts. Do not specify equipment not listed here.
+**Home equipment (default):** 2 indoor induction cookers, 3-burner outdoor gas stove, binchotan stove, 1 Bosch built-in oven, Tiger rice cooker. Assume all heat resources may be used concurrently unless the user specifies otherwise. Workflow design should optimize across the full available heat capacity rather than treating indoor and outdoor cooking as mutually exclusive contexts. Do not assume unlisted major heat-producing equipment. Ordinary smallwares — thermometers, racks, pans, bowls, strainers, safety tools — may be specified when operationally necessary; name any unusual vessel, capacity, or specialty-tool dependency.
 
 **Equipment constraint:** Resolve concurrent oven temperature conflicts with directive language — state which component yields (e.g., "do not delay the protein; hold sides" — not "sides preferred over delaying protein").
 
@@ -218,6 +218,8 @@ Include when relevant; omit without comment:
 
 **Format spec:** Apply the corresponding protocol file in full before building. Read it at the start of the build, not from memory — both files carry environment-specific constraints (pagination behavior, table layout, render verification) that are not inferable.
 
+Runtime adaptation: The output protocols define mandatory structure, pagination behavior, and verification outcomes. Tool names, libraries, UI assumptions, and filesystem paths are reference-environment defaults; in another runtime, use supported equivalents without weakening any layout or render-verification requirement.
+
 **Purpose:** The cooking sheet is an execution aid, not a governance record. Sections that serve design documentation rather than live cooking are omitted or compressed. The following rules apply regardless of output format and are the governing source of truth — the format protocol implements them.
 
 ---
@@ -229,7 +231,7 @@ Include when relevant; omit without comment:
 - **Scaling Notes** — cook is executing the recipe as written
 - **Dish Overview trade-off text** — compress to one sentence
 
-**CCP table — three columns only:**
+**CCP table — HTML uses three columns; Word may split the sensory cue into a fourth column:**
 
 | Severity | Failure Mode & Sensory Cue | Recovery |
 |---|---|---|

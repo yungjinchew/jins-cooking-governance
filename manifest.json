@@ -17,7 +17,7 @@
     {
       "id": "meal_workflow",
       "file": "recipe_governance_meal_workflow.md",
-      "version": "3.4",
+      "version": "3.5",
       "load_when": "Two or more components served together",
       "always": false
     },
@@ -31,7 +31,7 @@
     {
       "id": "vault_ops",
       "file": "recipe_governance_vault_ops.md",
-      "version": "3.4",
+      "version": "3.5",
       "load_when": "Creating, updating, or preparing a Vault entry",
       "always": false
     },
@@ -52,7 +52,7 @@
     {
       "id": "wine_pairing",
       "file": "wine_pairing_cooking_reference.md",
-      "version": null,
+      "version": "1.0",
       "load_when": "Wine, beverage, cellar, or pairing recommendation",
       "always": false
     }

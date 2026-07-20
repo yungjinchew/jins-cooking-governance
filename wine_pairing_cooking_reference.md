@@ -1,4 +1,4 @@
-# Wine Pairing Reference — Cooking Project
+# Wine Pairing Reference — Cooking Project (v1.0)
 
 ## Pairing Objective
 

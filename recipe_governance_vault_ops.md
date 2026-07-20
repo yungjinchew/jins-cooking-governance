@@ -1,4 +1,4 @@
-# Recipe Governance — Vault Operations (v3.4)
+# Recipe Governance — Vault Operations (v3.5)
 
 > Load only when creating, updating, or preparing a Recipe Vault entry. Not needed for recipe generation — use `recipe_governance_vault_signals.md` for that.
 
@@ -40,6 +40,8 @@ Update the Vault entry with:
 - **Designed-parameter confirmation:** where the recipe carried a parameter labeled *planned* rather than *validated* (hold windows, transition durations, recovery times — see Core "Designed ≠ tested"), record what actually happened. Confirmed → the parameter may be relabeled validated in the recipe. Failed or drifted → record the observed behavior and revise. This is the mechanism by which engineered assumptions become evidence; a designed parameter that is never checked against a real cook stays designed indefinitely.
 
 A recipe without post-cook data is an incomplete record. Update manually or via Notion integration.
+
+Append-only cook evidence: Each cook appends a dated record; never overwrite prior cook notes, ratings, deviations, or diner-specific verdicts. Record the recipe source/version (or immutable snapshot) used, material deviations, Rating and Execution Rating, and household split where relevant. Top-level fields may summarise the latest state, but the dated history remains the evidence source. A designed parameter may be relabelled validated only for the configuration observed — record the relevant quantity, geometry, vessel/equipment, temperature state, and hold duration — and never generalised beyond those conditions without further evidence.
 
 ---
 

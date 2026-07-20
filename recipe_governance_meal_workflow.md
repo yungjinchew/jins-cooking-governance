@@ -1,4 +1,4 @@
-# Recipe Governance — Meal Workflow (v3.4)
+# Recipe Governance — Meal Workflow (v3.5)
 
 > Load in addition to `recipe_governance_core.md` when generating two or more components served together.
 
@@ -94,7 +94,9 @@ Sort alphabetically within each section. Omit sections with no items. Mark likel
 
 **Sourcing notes:** After the table, add a brief notes block for any item where: (a) a single purchase non-obviously covers multiple uses (e.g., one parsley bunch covering salad, braise, and garnish), (b) a substitution is relevant, or (c) a quantity requires sourcing clarification. Omit the notes block if nothing material to flag.
 
-Do not include rice on the shopping list — rice type is confirmed separately before the meal is finalised.
+Include rice in the shopping list once type and quantity are confirmed, normally marked (pantry check). If type is unresolved, list “rice — type to confirm” and do not finalise the meal until it is resolved.
+
+Quantity reconciliation: Before finalizing, verify that every Shared Prep total and Shopping List total equals the sum of its dish allocations after unit conversion. Where a purchase unit differs from recipe-use units, state both the purchase quantity and the allocated recipe quantity. Any unresolved mismatch, omitted allocation, or double-counted reserve is a workflow failure.
 
 ---
 
