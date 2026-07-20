@@ -1,7 +1,7 @@
 {
   "framework": "Recipe Governance Framework",
-  "framework_version": "3.4",
-  "updated": "2026-07-18",
+  "framework_version": "3.5",
+  "updated": "2026-07-20",
   "canonical_source": "github",
   "notion_control_surface": "https://app.notion.com/p/3a1e0391ce6381dfb6dfc3b0c9e2e612",
   "change_queue": "https://app.notion.com/p/466bfaf3d8ed43dfa0e6a4c28caae2ef",
@@ -10,7 +10,7 @@
     {
       "id": "core",
       "file": "recipe_governance_core.md",
-      "version": "3.4",
+      "version": "3.5",
       "load_when": "Every recipe, dish, or cooking-method request",
       "always": true
     },
@@ -24,7 +24,7 @@
     {
       "id": "vault_signals",
       "file": "recipe_governance_vault_signals.md",
-      "version": "3.4",
+      "version": "3.5",
       "load_when": "A Vault digest is active, or Vault retrieval shapes a recipe",
       "always": false
     },

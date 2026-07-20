@@ -1,4 +1,4 @@
-# Recipe Governance — Vault Signals (v3.4)
+# Recipe Governance — Vault Signals (v3.5)
 
 > Load in addition to `recipe_governance_core.md` when a Vault digest is provided or Notion/Recipe Vault retrieval is being used to shape a recipe. Do not load for Vault entry creation or updates — use `recipe_governance_vault_ops.md` for that.
 
@@ -27,6 +27,8 @@ A Vault digest may be supplied as a preamble to any recipe request. When present
 7. General preference inference
 
 If Vault context conflicts with the user's current request, honor the request but flag the tension briefly. If it conflicts with Core framework rules, the framework prevails without exception.
+
+Safety override: The user's explicit current request controls preference, scope, and desired outcome, but never overrides food-safety, allergen, or execution hard limits. Where a request conflicts with a Core safety rule, the Core rule prevails; state the conflict and the safest executable alternative rather than silently complying or silently changing the request.
 
 ---
 

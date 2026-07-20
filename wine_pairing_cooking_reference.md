@@ -158,7 +158,7 @@ The inventory state resets when any of the following occur:
 
 When state is INVALID or STALE, fetch the live export before proceeding. Do not recommend from a prior export.
 
-**Fetch failure behavior:** The source is public GitHub raw content — there is no login, session, or auth step, so the old CellarTracker cache-clear-before-fetch workaround no longer applies. GitHub's CDN can occasionally serve a snapshot cached for a few minutes after an update; if the snapshot date in the file header (e.g., "snapshot 2026-06-18") looks stale relative to a known recent change, note it but proceed. If the fetch itself fails (network error, file moved, 404), state that the live export could not be retrieved and fall back to general style guidance only — do not name specific bottles.
+**Fetch failure behavior:** The source is public GitHub raw content — there is no login, session, or auth step, so the old CellarTracker cache-clear-before-fetch workaround no longer applies. GitHub's CDN can occasionally serve a snapshot cached for a few minutes after an update. If the snapshot predates a known inventory change, treat inventory state as UNAVAILABLE: retry once through the configured mirror or cache-busted URL, then provide general style guidance only and name no bottles. If the snapshot is merely older than expected but no inventory change is known, note the snapshot date and proceed. If the fetch itself fails (network error, file moved, 404), state that the live export could not be retrieved and fall back to general style guidance only — do not name specific bottles.
 
 ---
 
