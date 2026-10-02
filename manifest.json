@@ -1,6 +1,6 @@
 {
   "framework": "Recipe Governance Framework",
-  "framework_version": "3.7",
+  "framework_version": "3.8",
   "updated": "2026-10-02",
   "canonical_source": "github",
   "notion_control_surface": "https://app.notion.com/p/3a1e0391ce6381dfb6dfc3b0c9e2e612",
@@ -10,7 +10,7 @@
     {
       "id": "core",
       "file": "recipe_governance_core.md",
-      "version": "3.7",
+      "version": "3.8",
       "load_when": "Every recipe, dish, or cooking-method request",
       "always": true
     },
@@ -47,6 +47,14 @@
       "file": "recipe_output_html_protocol.md",
       "version": "1.3",
       "load_when": "Generating an HTML cooking sheet",
+      "always": false
+    },
+    {
+      "id": "review_protocol",
+      "file": "recipe_review_protocol.md",
+      "version": "1.0",
+      "date": "2026-10-02",
+      "load_when": "Every complete recipe or menu, before it is declared stable — the automatic review loop (GPT via the kitchen review service, Claude critic as fallback)",
       "always": false
     },
     {
