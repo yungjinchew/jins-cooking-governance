@@ -154,7 +154,7 @@ Properties: **Chat title** (title) · **Chat date** · **Meal or dish name** · 
 Page body, in this order. Omit a section that does not apply; never invent content to fill one.
 
 ```
-governance_version: v3.6
+governance_version: <framework_version from manifest.json, e.g. v3.7>
 
 ## MEAL                         (omit for a single standalone dish)
 name: <menu title>
