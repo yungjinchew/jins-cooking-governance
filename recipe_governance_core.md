@@ -1,4 +1,4 @@
-# Recipe Governance — Core (v3.5)
+# Recipe Governance — Core (v3.6)
 
 > Split-file architecture: this file loads for every recipe, dish, or cooking-method request.
 > Add `recipe_governance_meal_workflow.md` for multi-component menus.
@@ -215,6 +215,7 @@ Include when relevant; omit without comment:
 |---|---|---|
 | "generate the document," "Word doc," "export to Word," "docx" — **any document request not naming HTML** | **Word (.docx)** | `recipe_output_docx_protocol.md` |
 | "cooking sheet," "export to HTML," "printable version," "generate the HTML" | HTML | `recipe_output_html_protocol.md` |
+| **Recipe stable / Menu stable**, "save for next time," any document build, any post-cook update | Persist to jins-kitchen — directly via Supabase where the session has it, otherwise as a page in the Notion Kitchen Inbox (drained daily). Mandatory: the turn is not complete until one has happened. Structured data is the master; documents are optional renders | `recipe_output_data_protocol.md` |
 
 **Disambiguation rule:** A bare "generate the document" means docx. Where the request is genuinely ambiguous between the two, ask rather than guess — regenerating in the other format costs a full build cycle.
 
