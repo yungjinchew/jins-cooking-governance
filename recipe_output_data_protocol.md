@@ -1,6 +1,6 @@
-# Recipe Output — Data Protocol (v1.1, 2026-10-02)
+# Recipe Output — Data Protocol (v1.2, 2026-10-02)
 
-**Version:** 1.1 (2026-10-02) — adds the Kitchen Inbox write path (§3.0, §8), print-from-data (§4) and the daily audit (§9). Companion to `recipe_output_docx_protocol.md` and `recipe_output_html_protocol.md`. Governs how a finished recipe or meal is **persisted** to the kitchen system of record (Supabase project `jins-kitchen`) so that the front end at jins-kitchen.netlify.app, the shopping list, the cook log and the stored documents all derive from one structured source.
+**Version:** 1.2 (2026-10-02) — Kitchen Inbox write path (§3.0, §8), print-from-data (§4), daily audit (§9); saving is immediate, no approval step (§1). Companion to `recipe_output_docx_protocol.md` and `recipe_output_html_protocol.md`. Governs how a finished recipe or meal is **persisted** to the kitchen system of record (Supabase project `jins-kitchen`) so that the front end at jins-kitchen.netlify.app, the shopping list, the cook log and the stored documents all derive from one structured source.
 
 **Principle:** structured data is the master; docx / PDF / HTML are renders of it. A document is never the only copy of a recipe.
 
@@ -16,7 +16,7 @@
 | Post-cook update ("log the cook", ratings given) | Insert a `cook` row per §5. Never overwrite a prior cook. |
 | Narrow method / substitution question (no complete recipe) | Protocol does not apply. |
 
-Persistence is **not** silent: show Jin the rows (dish names, meal, cook values) in chat before writing, as the Restaurants workstation does (APF-020). Print, then write on his nod.
+Persistence is **automatic and reported**: write immediately when a trigger above fires — do not ask first and do not wait for a nod. Then tell Jin in one or two lines what was saved (meal, dish names, cook values) and where. A wrong save is cheap to correct (a revision replaces it); an unsaved recipe is lost.
 
 ---
 
@@ -139,7 +139,7 @@ From 2026-09-30 the Vault is a read-only archive. `recipe_governance_vault_ops.m
 - [ ] Ingredient names matched to existing canonical names where one exists.
 - [ ] Slugs unique; meal components prefixed.
 - [ ] `designed_unvalidated` lists every "designed — not yet validated" item.
-- [ ] Rows shown to Jin in chat and acknowledged before the write.
+- [ ] Written immediately, without waiting for approval; what was saved is reported to Jin after the write.
 - [ ] Documents (only if generated): docx verified → PDF rendered → both in `site/docs/` and deployed → `document` rows with correct version and `is_latest`.
 - [ ] The reply ends with where it was persisted (`Saved to jins-kitchen` / `Filed in Kitchen Inbox`).
 

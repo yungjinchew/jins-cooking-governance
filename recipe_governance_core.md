@@ -1,10 +1,11 @@
-# Recipe Governance — Core (v3.6)
+# Recipe Governance — Core (v3.7)
 
 > Split-file architecture: this file loads for every recipe, dish, or cooking-method request.
 > Add `recipe_governance_meal_workflow.md` for multi-component menus.
 > Add `recipe_governance_vault_signals.md` when a Vault digest is active or Notion/Recipe Vault retrieval is used to shape a recipe.
 > Add `recipe_governance_vault_ops.md` only when creating, updating, or preparing a Vault entry.
 > Add `recipe_output_docx_protocol.md` when generating a Word document, or `recipe_output_html_protocol.md` when generating an HTML cooking sheet.
+> Add `recipe_output_data_protocol.md` when a recipe or menu reaches stable, is saved for next time, or a cook is logged — saving it to jins-kitchen is mandatory (Section XIV).
 >
 > **Governance snapshot consistency:** Fetch the manifest once, load every required file, then re-fetch the manifest before applying the rules. If `framework_version` or `updated` changed during loading, discard the mixed set and reload. Never combine files from different manifest snapshots; if any required file cannot be fetched, state the incomplete load and do not claim full-framework compliance.
 
@@ -302,6 +303,7 @@ Hard failures — revise any recipe containing these:
 - [ ] Cooking method named by actual mechanism; derived terms consistent throughout; technique rationales mechanically accurate
 - [ ] Designed-but-untested parameters labeled "planned," not "validated"; flagged as post-cook confirmation candidates
 - [ ] If `recipe_governance_vault_signals.md` loaded: apply Vault self-check per that file
+- [ ] At stable, save-for-later, or a cook log: persisted per `recipe_output_data_protocol.md`, and the save line stated
 
 **This checklist is internal. Do not output it.**
 
@@ -320,4 +322,10 @@ A recipe or menu has reached stability when all of the following are true:
 
 **Escalation threshold:** Resume a review cycle only when: (a) a material culinary change is proposed, (b) a new execution failure is reported, or (c) the user explicitly requests a compliance audit.
 
-When saturation is reached, state it explicitly: "Recipe stable" or "Menu stable."
+When saturation is reached, **save first, then say so**:
+
+1. Persist the recipe or menu per `recipe_output_data_protocol.md` — write directly to jins-kitchen where the session has Supabase, otherwise create one page in the Notion Kitchen Inbox. Do not wait for permission; saving is part of reaching stable.
+2. State it explicitly — "Recipe stable" or "Menu stable" — followed on the next line by where it was saved: `Saved to jins-kitchen` or `Filed in Kitchen Inbox (loads within a day)`.
+3. If no write path is available, state "Recipe stable — NOT SAVED", say why, and print the Kitchen Inbox entry in full so it can be filed from another session.
+
+Never state "Recipe stable" or "Menu stable" without one of these three outcomes. If Jin moves on to a shopping list, a document, a timeline, or the cook itself without asking for further revisions, treat the recipe as stable and persist it at that point. A later material revision is persisted again; it replaces the stored recipe and never touches cook history.

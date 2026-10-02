@@ -1,6 +1,6 @@
 {
   "framework": "Recipe Governance Framework",
-  "framework_version": "3.6",
+  "framework_version": "3.7",
   "updated": "2026-10-02",
   "canonical_source": "github",
   "notion_control_surface": "https://app.notion.com/p/3a1e0391ce6381dfb6dfc3b0c9e2e612",
@@ -10,7 +10,7 @@
     {
       "id": "core",
       "file": "recipe_governance_core.md",
-      "version": "3.6",
+      "version": "3.7",
       "load_when": "Every recipe, dish, or cooking-method request",
       "always": true
     },
@@ -52,7 +52,7 @@
     {
       "id": "data_protocol",
       "file": "recipe_output_data_protocol.md",
-      "version": "1.1",
+      "version": "1.2",
       "date": "2026-10-02",
       "load_when": "Recipe stable / Menu stable, save for next time, any document build, any post-cook update — persist to jins-kitchen (Supabase directly, or the Notion Kitchen Inbox)",
       "always": false
