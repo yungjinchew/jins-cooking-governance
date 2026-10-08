@@ -1,4 +1,4 @@
-# Wine Pairing Reference — Cooking Project (v1.1)
+# Wine Pairing Reference — Cooking Project (v1.2)
 
 ## Pairing Objective
 
@@ -72,10 +72,10 @@ Strong bridge styles:
 **Whites are dry by default.** Off-dry only when the dish calls for it
 (spice, for example). **Sauvignon Blanc is a favourite.**
 
-**Heavily oaked whites are avoided, and that is what the Chardonnay
-aversion is about.** Do not recommend oaked Chardonnay. Unoaked
-Chardonnay is fine and Chablis is enjoyed; flag a Chablis cuvée that
-is oak-aged.
+**Heavy, buttery oak on a white is what is avoided, not Chardonnay.**
+Chardonnay is open: Chablis and other unoaked styles are enjoyed, and
+a restrained oaked one may be recommended when the dish suits it,
+flagged as oaked. Mark a heavily oaked white down, whatever the grape.
 
 Preferred whites:
 - Sauvignon Blanc, and White Bordeaux or Sauvignon/Sémillon blends
