@@ -1,4 +1,4 @@
-# Recipe Governance — Core (v3.8)
+# Recipe Governance — Core (v3.9)
 
 > Split-file architecture: this file loads for every recipe, dish, or cooking-method request.
 > Add `recipe_governance_meal_workflow.md` for multi-component menus.
@@ -68,6 +68,7 @@ Two to four sentences: core flavor profile, texture targets, primary technique. 
 **Weights:** Always state in both imperial and metric. Format: lb / kg or oz / g. Examples: "2 lb / 900 g", "1 lb / 450 g", "4 oz / 115 g". Applies to all protein, produce, and dry ingredient quantities expressed by weight. Round metric to the nearest practical amount (5 g for small quantities; 25 g or 50 g for larger). Count-based quantities (eggs, cloves, stalks, slices) are exempt.
 **Heat:** very low · low · medium-low · medium · medium-high · high
 **Time:** Use ranges where environment varies. State carryover and rest explicitly; never embed in pull temp.
+**Purchase spec:** Where the outcome depends on buying a specific variety, cut, grade, size, brand or source, the Ingredient List line states it as a buying instruction, separate from prep (e.g., "potato — buy waxy or all-purpose: Yukon Gold, Nicola; **not Russet**"). Where a common substitute on the shelf would fail the dish, name it as a "not" on the same line. The spec travels with the item to every shopping list built from the recipe; it is never left only in the method, the overview or a separate sourcing note.
 
 ---
 
@@ -297,6 +298,7 @@ Hard failures — revise any recipe containing these:
 - [ ] Scaling Notes: material constraints only
 - [ ] No unjustified complexity
 - [ ] Root vegetables and produce: peel status stated explicitly for every item where it is non-obvious
+- [ ] Purchase-critical items carry their buying spec on the ingredient line, with a named "not" where the common substitute fails; none left only in the method or a sourcing note
 - [ ] Pan preparation: fat type, flour/breadcrumb dusting, parchment use and placement, and parchment greasing all stated where applicable
 - [ ] Every doneness cue checked against the dish's own stated texture target — no cue indicating a different endpoint than the one targeted
 - [ ] No competing numeric metric stated alongside a controlling non-numeric trigger where placement is unreliable

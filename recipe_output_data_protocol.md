@@ -1,6 +1,6 @@
-# Recipe Output — Data Protocol (v1.2, 2026-10-02)
+# Recipe Output — Data Protocol (v1.3, 2026-10-12)
 
-**Version:** 1.2 (2026-10-02) — Kitchen Inbox write path (§3.0, §8), print-from-data (§4), daily audit (§9); saving is immediate, no approval step (§1). Companion to `recipe_output_docx_protocol.md` and `recipe_output_html_protocol.md`. Governs how a finished recipe or meal is **persisted** to the kitchen system of record (Supabase project `jins-kitchen`) so that the front end at jins-kitchen.netlify.app, the shopping list, the cook log and the stored documents all derive from one structured source.
+**Version:** 1.3 (2026-10-12) — purchase spec columns `buy_spec` / `buy_avoid` (§3.2, §7, §8). 1.2 (2026-10-02) — Kitchen Inbox write path (§3.0, §8), print-from-data (§4), daily audit (§9); saving is immediate, no approval step (§1). Companion to `recipe_output_docx_protocol.md` and `recipe_output_html_protocol.md`. Governs how a finished recipe or meal is **persisted** to the kitchen system of record (Supabase project `jins-kitchen`) so that the front end at jins-kitchen.netlify.app, the shopping list, the cook log and the stored documents all derive from one structured source.
 
 **Principle:** structured data is the master; docx / PDF / HTML are renders of it. A document is never the only copy of a recipe.
 
@@ -78,7 +78,9 @@ A turn that declares **Recipe stable / Menu stable**, saves for next time, or lo
 | `ingredient.department` | Protein · Produce · Dairy · Bread · Frozen · Pantry · Oils & Liquids · Alcohol · Seasoning |
 | `qty`, `unit` | Metric where both are given (g, ml); `unit` from g · ml · tsp · tbsp · piece · clove · bunch · sprig · slice · cup · pinch. Ranges → lower bound in `qty`, full range in `qty_alt`. |
 | `qty_alt` | The other unit exactly as written (`6½ tbsp`, `9 oz`). |
-| `prep_note` | `diced`, `zest only`, `for the braise`. |
+| `buy_spec` | What to buy, when the dish depends on it: variety, cut, grade, size, brand or source (`waxy or all-purpose: Yukon Gold, Nicola`, `medium grain`, `Gooralie`, `large`). Shown on every shopping line. Blank when any version will do. |
+| `buy_avoid` | What NOT to buy, when the common substitute fails (`Russet (floury)`, `fine`, `smoked bacon`). Shown as a bold "not …" on the shopping line. Only when the recipe says it. |
+| `prep_note` | Kitchen work only: `diced`, `zest only`, `for the braise`. Never the only place a buying spec is stated. |
 | `pantry_check` | true when the shopping list marks it "(pantry check)". |
 | `optional` | true when the recipe says optional. |
 | `sort_order` | Ingredient List order. |
@@ -137,6 +139,7 @@ From 2026-09-30 the Vault is a read-only archive. `recipe_governance_vault_ops.m
 
 - [ ] Every Ingredient List line has a `dish_ingredient` row; none invented, none dropped.
 - [ ] Ingredient names matched to existing canonical names where one exists.
+- [ ] Every purchase-critical spec is in `buy_spec`, every stated "not" in `buy_avoid`; `prep_note` holds kitchen work only.
 - [ ] Slugs unique; meal components prefixed.
 - [ ] `designed_unvalidated` lists every "designed — not yet validated" item.
 - [ ] Written immediately, without waiting for approval; what was saved is reported to Jin after the write.
@@ -175,7 +178,8 @@ status: stable
 summary: <one sentence>
 equipment: <only what the recipe names>
 ### INGREDIENTS                 (one line per ingredient)
-qty | unit | name | note (alt units, prep) | pantry yes/no | optional yes/no
+qty | unit | name | buy spec | not | note (alt units, prep) | pantry yes/no | optional yes/no
+                                (buy spec and not may be blank; the drain also accepts the older 6-column line without them)
 ### RECIPE
 **Dish Overview.** … **Yield & Timing.** … **Flavor Architecture.** … **Prep Phase.** … **Active Cooking.** … **Holding & Assembly.** … **Critical Control Points.** (table) … **Adjustment Notes.** … **Scaling Notes.** … **Nutrition Estimate.** …
 ### DESIGNED — NOT YET VALIDATED

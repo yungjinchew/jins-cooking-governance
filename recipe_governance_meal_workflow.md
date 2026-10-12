@@ -1,4 +1,4 @@
-# Recipe Governance — Meal Workflow (v3.5)
+# Recipe Governance — Meal Workflow (v3.9)
 
 > Load in addition to `recipe_governance_core.md` when generating two or more components served together.
 
@@ -75,7 +75,10 @@ For every multi-component meal, generate a consolidated Shopping List after the 
 |---|---|---|---|---|
 | **SECTION HEADER** | | | | |
 | Item *(pantry check)* | consolidated qty | dish qty or — | dish qty or — | — |
+| Potato — buy waxy (Yukon Gold, Nicola); **not Russet** | 750 g | 750 g | — | — |
 ```
+
+**Buying spec on the line:** Every row whose dish depends on a variety, cut, grade, size or brand carries that spec in the Ingredient cell, and a bold **not …** where the common substitute fails (Core §III Purchase spec). The same ingredient bought to two different specs is two rows (e.g., waxy potatoes for a rösti, floury for a purée) — never consolidate rows whose specs differ. A shopper reading only the row must buy the right thing.
 
 **Dish column naming:** Use a short identifier per dish (e.g., Stew, Salad, Cake) — not the full dish title. Where an ingredient appears in a sub-component of a dish (e.g., a garnish or sauce within a recipe), note it parenthetically in that dish's column: e.g., "2 tbsp (gremolata)".
 
@@ -92,7 +95,7 @@ For every multi-component meal, generate a consolidated Shopping List after the 
 
 Sort alphabetically within each section. Omit sections with no items. Mark likely pantry items with *(pantry check)* rather than omitting them.
 
-**Sourcing notes:** After the table, add a brief notes block for any item where: (a) a single purchase non-obviously covers multiple uses (e.g., one parsley bunch covering salad, braise, and garnish), (b) a substitution is relevant, or (c) a quantity requires sourcing clarification. Omit the notes block if nothing material to flag.
+**Sourcing notes:** After the table, add a brief notes block for any item where: (a) a single purchase non-obviously covers multiple uses (e.g., one parsley bunch covering salad, braise, and garnish), (b) a substitution is relevant, or (c) a quantity requires sourcing clarification. Omit the notes block if nothing material to flag. Sourcing notes explain; they never carry the only statement of what to buy or what not to buy — that belongs on the row.
 
 Include rice in the shopping list once type and quantity are confirmed, normally marked (pantry check). If type is unresolved, list “rice — type to confirm” and do not finalise the meal until it is resolved.
 
