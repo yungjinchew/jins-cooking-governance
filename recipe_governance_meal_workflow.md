@@ -20,6 +20,8 @@ Produce a standalone Meal Workflow document in addition to individual recipes. T
 
 **Parallel vs. sequential tasks:** State explicitly what runs concurrently and what must wait. Flag any step that cannot safely overlap.
 
+**Attention budget:** Concurrency is limited by the cook, not only by heat sources. In the final convergence window (critical-path rest through plating), count the hands-on stations and their physical separation. Where more than two need active attention at once, or active stations sit in different locations, move a secondary component to a passive method (oven, hold) or complete it before the critical-path exit.
+
 **Holding chain:** For each component completing before service — holding vessel, temperature, covered/uncovered, max hold time. For each drift risk, state the corrective action (e.g., "mash will tighten after 20 min — loosen with warm milk before plating" — not "mash may thicken").
 
 **Reserved-portion diversion (planned leftovers):** Where extra is cooked deliberately for later meals, divert the reserved portion **before** any à-la-minute finishing step rather than after. Finishes that are designed to degrade quickly — glazes, lacquers, crisped surfaces, dressed salads — should not be applied to a portion that will be stored; they store poorly and are better rebuilt fresh on reheat. State in the workflow: at which step the reserve is pulled, that it is pulled unfinished, how it is cooled and stored, and the reheat method that rebuilds the finish. Where the finishing sauce or dressing is also needed later, split it into an explicit leftover-reserve portion at the point of making it. Reserved portions require their own holding-chain row and a food-safety cooling CCP where a hot item is being stored.
