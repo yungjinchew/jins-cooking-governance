@@ -1,6 +1,6 @@
-# Recipe Output — Data Protocol (v1.4, 2026-10-15)
+# Recipe Output — Data Protocol (v1.5, 2026-10-15)
 
-**Version:** 1.4 (2026-10-15) — saves go through `kitchen_save_dish` / `kitchen_save_meal` / `kitchen_save_cook` called with SELECT, never plain UPDATE or DELETE (§7); optional `slug:` line on inbox MEAL and DISH blocks, and no notes addressed to the drain on an inbox page (§8). 1.3 (2026-10-12) — purchase spec columns `buy_spec` / `buy_avoid` (§3.2, §7, §8). 1.2 (2026-10-02) — Kitchen Inbox write path (§3.0, §8), print-from-data (§4), daily audit (§9); saving is immediate, no approval step (§1). Companion to `recipe_output_docx_protocol.md` and `recipe_output_html_protocol.md`. Governs how a finished recipe or meal is **persisted** to the kitchen system of record (Supabase project `jins-kitchen`) so that the front end at jins-kitchen.netlify.app, the shopping list, the cook log and the stored documents all derive from one structured source.
+**Version:** 1.5 (2026-10-15) — every write is a save-function call: key reference in §3.4; §3.0 routes the Supabase path through it; documents register with `kitchen_save_document` (§4) and cooks save with `kitchen_save_cook` (§5); retiring, unlinking and deleting stay with Jin (§3.4). 1.4 (2026-10-15) — saves go through `kitchen_save_dish` / `kitchen_save_meal` / `kitchen_save_cook` called with SELECT, never plain UPDATE or DELETE (§7); optional `slug:` line on inbox MEAL and DISH blocks, and no notes addressed to the drain on an inbox page (§8). 1.3 (2026-10-12) — purchase spec columns `buy_spec` / `buy_avoid` (§3.2, §7, §8). 1.2 (2026-10-02) — Kitchen Inbox write path (§3.0, §8), print-from-data (§4), daily audit (§9); saving is immediate, no approval step (§1). Companion to `recipe_output_docx_protocol.md` and `recipe_output_html_protocol.md`. Governs how a finished recipe or meal is **persisted** to the kitchen system of record (Supabase project `jins-kitchen`) so that the front end at jins-kitchen.netlify.app, the shopping list, the cook log and the stored documents all derive from one structured source.
 
 **Principle:** structured data is the master; docx / PDF / HTML are renders of it. A document is never the only copy of a recipe.
 
@@ -51,7 +51,7 @@ Persistence is **automatic and reported**: write immediately when a trigger abov
 
 | Session has | Do this |
 |---|---|
-| The Supabase connector (Cowork) | Write directly to project `umqkgxsypcgvzkfjkzpc`, tables in `public`, per 3.1–3.4. Never hardcode ids; resolve by `slug`. |
+| The Supabase connector (Cowork) | Save to project `umqkgxsypcgvzkfjkzpc` through the save functions, called with SELECT, per 3.1–3.4. Never plain UPDATE or DELETE. Records are matched by `slug`; never hardcode ids. |
 | Notion but not Supabase (claude.ai project chats, phone) | Create ONE page in the **Kitchen Inbox** database (§8). The daily *Kitchen inbox drain* task loads it into jins-kitchen within 24 hours and ticks **Ingested**. |
 | Neither | Say so plainly and print the §8 entry in chat so Jin can hand it to a session that can write. Do not claim the recipe is saved. |
 
@@ -66,7 +66,7 @@ A turn that declares **Recipe stable / Menu stable**, saves for next time, or lo
 | `protein` | One of Beef · Pork · Lamb · Chicken · Duck · Fish · Shellfish · Seafood · Veg; only on the component that carries it; `Veg` for vegetable-led sides; null for starches, sauces, desserts. |
 | `category[]` | Main · Side · Sauce · Salad · Soup · Bread · Dessert |
 | `cuisine[]`, `difficulty` (Easy · Medium · Special), `tags[]`, `occasion[]` | As the Vault used them; leave blank rather than force-fit (vault_ops schema-gap rule). |
-| `status` | `designed` on persist; becomes `cooked` when the first `cook` row lands; `retired` only on Jin's instruction. |
+| `status` | `designed` on persist; becomes `cooked` when the first `cook` row lands; `retired` only by Jin, by hand (the save functions cannot retire a dish). |
 | `source`, `governance_version` | Provenance line and the Core version used (`v3.5`). |
 | `equipment[]` | Only equipment the recipe names (narrow oval Le Creuset, konro, TempSpike…). |
 
@@ -74,7 +74,7 @@ A turn that declares **Recipe stable / Menu stable**, saves for next time, or lo
 
 | Column | Rule |
 |---|---|
-| `ingredient.name` | Canonical, lower-case, singular, no quantity (`chicken thigh, bone-in`). **Look up before insert** — reuse an existing name (`unsalted butter`, `diamond crystal kosher salt`, `extra-virgin olive oil`, `flat-leaf parsley`) rather than creating a spelling variant. Insert only when no match exists. |
+| `ingredient.name` | Canonical, lower-case, singular, no quantity (`chicken thigh, bone-in`). **Look up before insert** — reuse an existing name (`unsalted butter`, `diamond crystal kosher salt`, `extra-virgin olive oil`, `flat-leaf parsley`) rather than creating a spelling variant. Create one (in `new_ingredients`, §3.4) only when no match exists. |
 | `ingredient.department` | Protein · Produce · Dairy · Bread · Frozen · Pantry · Oils & Liquids · Alcohol · Seasoning |
 | `qty`, `unit` | Metric where both are given (g, ml); `unit` from g · ml · tsp · tbsp · piece · clove · bunch · sprig · slice · cup · pinch. Ranges → lower bound in `qty`, full range in `qty_alt`. |
 | `qty_alt` | The other unit exactly as written (`6½ tbsp`, `9 oz`). |
@@ -91,7 +91,18 @@ A turn that declares **Recipe stable / Menu stable**, saves for next time, or lo
 
 `meal_dish`: one row per component with `role` (main · side · sauce · salad · soup · bread · starter · dessert) and `service_order`.
 
-**3.4 Order of writes:** ingredient (upsert by name) → dish → dish_ingredient → meal → meal_dish. Wrap in one transaction.
+**3.4 Save calls.** Every write is one of these functions, called with `SELECT`, e.g. `SELECT public.kitchen_save_dish('short-ribs-braised', jsonb_build_object('method_md', $kq$…$kq$), 'Cowork 2026-10-15: short ribs v3.9');`. Build `p` with `jsonb_build_object` / `jsonb_build_array` and dollar-quoted text (`$kq$…$kq$`) so nothing needs escaping. The last argument is a short provenance line. Only keys present in `p` change. Each call validates its input and either writes completely or raises an error and writes nothing; every overwritten value is logged to `kitchen_revision`.
+
+| Function | Keys of `p` | Returns |
+|---|---|---|
+| `kitchen_save_dish(slug, p, source)` | `name` (required for a new dish), `protein`, `category` [ ], `cuisine` [ ], `difficulty`, `servings`, `summary`, `equipment` [ ], `tags` [ ], `occasion` [ ], `nutrition_estimate` {kcal, protein_g, carbs_g, fat_g, per}, `governance_version`, `source`, `designed_unvalidated` [{param, designed_value, note}], `method_md`, `status` (idea · designed · cooked; never moves back from cooked), `ingredients` [{name, qty, unit, qty_alt, buy_spec, buy_avoid, prep_note, pantry_check, optional}] — the FULL list in Ingredient List order; it replaces the dish's rows, `new_ingredients` [{name, department}] — canonical names to create first | `changed`, `ingredient_rows` |
+| `kitchen_save_meal(slug, p, source)` | `name` (required for a new meal), `planned_date`, `service_time`, `status` (backlog · planned · cooked), `pax`, `workflow_md`, `shared_prep_md`, `wine_pairing`, `cellar_iwine`, `dishes` [{slug, role, service_order}] — links dishes, never unlinks | `changed`, `dish_count` |
+| `kitchen_save_cook(p, source)` | §5 | `changed`, `measurements_inserted` |
+| `kitchen_save_document(p, source)` | §4 | `version`, `storage_path` |
+
+Ingredient names must already exist in `ingredient` or be passed in `new_ingredients`; units must be one of §3.2's. Order: one `kitchen_save_dish` call per component → one `kitchen_save_meal` call listing every component in `dishes` → `kitchen_save_cook` when a cook is logged. There is no transaction across calls: if one fails, correct `p` and call again (the calls are safe to repeat). Check `ingredient_rows` against the Ingredient List line count for every dish.
+
+Not possible from a session, by design: retiring a dish, unlinking a dish from a meal, deleting any row, renaming an ingredient. Say what needs doing; Jin does it by hand in the Supabase editor.
 
 ---
 
@@ -103,7 +114,7 @@ When a docx is generated in a session that has the site repo (Cowork), after it 
 
 1. Render PDF: `soffice --headless --convert-to pdf`. Verify page count matches the docx verification pass.
 2. Copy both into the site at `Cooking/jins-kitchen/site/docs/<owner-slug>/v<version>/<file>` (e.g. `site/docs/coq-au-vin-dinner/v1/coq-au-vin-dinner.pdf`) and run `deploy.sh`. Version = 1 + highest existing version for that owner and kind. `storage_path` is site-relative: `docs/<owner-slug>/v<version>/<file>`.
-3. Insert `document` rows: `owner_type` (meal | dish), `owner_id`, `kind` (docx | pdf), `version`, `governance_version`, `storage_path`, `file_name`, `bytes`, `is_latest = true`; set the previous version's `is_latest = false`.
+3. Register each file with `SELECT public.kitchen_save_document(p, source)`, keys `owner_type` (meal | dish), `owner_slug`, `kind` (docx | pdf), `storage_path`, `file_name`, `bytes`, `governance_version`. The function marks the new version `is_latest` and clears the previous one. It rejects a `storage_path` that is not the next version's folder, and its error names the right path.
 4. The PWA shows the PDF under **Open / print** and the docx under **Download**. "Reprint" is opening the stored PDF; "regenerate" is a new version, never an overwrite.
 
 A docx generated in a session without the site repo is not stored: name it in the inbox entry's **Documents generated** field and rely on the print view. The data is the record either way.
@@ -125,7 +136,9 @@ One `cook` row per time a meal or dish is cooked (`cooked_on` required; `meal_id
 | `parameter_confirmations` | jsonb `[{param, designed, observed, verdict}]`, verdict confirmed · diverged · unresolved. Every `designed_unvalidated` item on the dish is addressed — confirmed items close the validation; unresolved ones stay in the queue. |
 | `household_split`, `wine_outcome` | When stated |
 
-Dish rating and "times made" are **rollups** over cook rows (`dish_rating_rollup` view) — never edit a dish to record a rating. On the first cook row for a dish, set `dish.status = 'cooked'`; on the meal, `status = 'cooked'` and `planned_date = cooked_on` if unset.
+Save with `SELECT public.kitchen_save_cook(p, source)`, keys `meal_slug` or `dish_slug` (exactly one), `cooked_on`, `rating`, `execution_rating`, `repeat`, `cook_notes`, `deviations` [ ], `parameter_confirmations` [{param, designed, observed, verdict}], `household_split`, `wine_outcome`, `measurements` [{gate, predicted, observed, probe}], `measurement_dish_slug`, `mark_cooked`. It upserts by (meal or dish, `cooked_on`) and writes only non-empty values, so a rating is never blanked; measurements are added once. `mark_cooked: true` sets the meal and its dishes to `cooked` and the meal's `planned_date` to `cooked_on`. For a per-component rating, call it again with `dish_slug` and the same `cooked_on`.
+
+Dish rating and "times made" are **rollups** over cook rows (`dish_rating_rollup` view) — never edit a dish to record a rating.
 
 ---
 
@@ -137,7 +150,7 @@ From 2026-09-30 the Vault is a read-only archive. `recipe_governance_vault_ops.m
 
 ## 7. Self-check before writing
 
-**Write path.** Save with SELECT public.kitchen_save_dish / kitchen_save_meal / kitchen_save_cook (see the Cooking system project note claude/2026-10-15-cooking-write-path-functions.md for the keys). Never use plain UPDATE or DELETE on kitchen tables: the Supabase connector cancels them and the call times out after 3 minutes without saving. Check each call's returned ingredient_rows against the recipe.
+**Write path.** Save with SELECT public.kitchen_save_dish / kitchen_save_meal / kitchen_save_cook / kitchen_save_document (keys in §3.4, §4 and §5). Never use plain UPDATE or DELETE on kitchen tables: the Supabase connector cancels them and the call times out after 3 minutes without saving. Check each call's returned ingredient_rows against the recipe.
 
 - [ ] Every Ingredient List line has a `dish_ingredient` row; none invented, none dropped.
 - [ ] Ingredient names matched to existing canonical names where one exists.
@@ -145,7 +158,7 @@ From 2026-09-30 the Vault is a read-only archive. `recipe_governance_vault_ops.m
 - [ ] Slugs unique; meal components prefixed.
 - [ ] `designed_unvalidated` lists every "designed — not yet validated" item.
 - [ ] Written immediately, without waiting for approval; what was saved is reported to Jin after the write.
-- [ ] Documents (only if generated): docx verified → PDF rendered → both in `site/docs/` and deployed → `document` rows with correct version and `is_latest`.
+- [ ] Documents (only if generated): docx verified → PDF rendered → both in `site/docs/` and deployed → both registered with `kitchen_save_document`.
 - [ ] The reply ends with where it was persisted (`Saved to jins-kitchen` / `Filed in Kitchen Inbox`).
 
 ---
