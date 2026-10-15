@@ -1,6 +1,6 @@
-# Recipe Output — Data Protocol (v1.3, 2026-10-12)
+# Recipe Output — Data Protocol (v1.4, 2026-10-15)
 
-**Version:** 1.3 (2026-10-12) — purchase spec columns `buy_spec` / `buy_avoid` (§3.2, §7, §8). 1.2 (2026-10-02) — Kitchen Inbox write path (§3.0, §8), print-from-data (§4), daily audit (§9); saving is immediate, no approval step (§1). Companion to `recipe_output_docx_protocol.md` and `recipe_output_html_protocol.md`. Governs how a finished recipe or meal is **persisted** to the kitchen system of record (Supabase project `jins-kitchen`) so that the front end at jins-kitchen.netlify.app, the shopping list, the cook log and the stored documents all derive from one structured source.
+**Version:** 1.4 (2026-10-15) — saves go through `kitchen_save_dish` / `kitchen_save_meal` / `kitchen_save_cook` called with SELECT, never plain UPDATE or DELETE (§7); optional `slug:` line on inbox MEAL and DISH blocks, and no notes addressed to the drain on an inbox page (§8). 1.3 (2026-10-12) — purchase spec columns `buy_spec` / `buy_avoid` (§3.2, §7, §8). 1.2 (2026-10-02) — Kitchen Inbox write path (§3.0, §8), print-from-data (§4), daily audit (§9); saving is immediate, no approval step (§1). Companion to `recipe_output_docx_protocol.md` and `recipe_output_html_protocol.md`. Governs how a finished recipe or meal is **persisted** to the kitchen system of record (Supabase project `jins-kitchen`) so that the front end at jins-kitchen.netlify.app, the shopping list, the cook log and the stored documents all derive from one structured source.
 
 **Principle:** structured data is the master; docx / PDF / HTML are renders of it. A document is never the only copy of a recipe.
 
@@ -137,6 +137,8 @@ From 2026-09-30 the Vault is a read-only archive. `recipe_governance_vault_ops.m
 
 ## 7. Self-check before writing
 
+**Write path.** Save with SELECT public.kitchen_save_dish / kitchen_save_meal / kitchen_save_cook (see the Cooking system project note claude/2026-10-15-cooking-write-path-functions.md for the keys). Never use plain UPDATE or DELETE on kitchen tables: the Supabase connector cancels them and the call times out after 3 minutes without saving. Check each call's returned ingredient_rows against the recipe.
+
 - [ ] Every Ingredient List line has a `dish_ingredient` row; none invented, none dropped.
 - [ ] Ingredient names matched to existing canonical names where one exists.
 - [ ] Every purchase-critical spec is in `buy_spec`, every stated "not" in `buy_avoid`; `prep_note` holds kitchen work only.
@@ -160,6 +162,7 @@ Page body, in this order. Omit a section that does not apply; never invent conte
 governance_version: <framework_version from manifest.json, e.g. v3.7>
 
 ## MEAL                         (omit for a single standalone dish)
+slug: <existing meal slug>      (optional — used to match an existing record when a revision renames it)
 name: <menu title>
 planned_or_cooked_date: YYYY-MM-DD   (blank if backlog)
 pax: 3
@@ -171,6 +174,7 @@ wine_pairing: <text>
 <aggregated prep lines>
 
 ## DISH: <dish name>            (one block per component)
+slug: <existing dish slug>      (optional — used to match an existing record when a revision renames it)
 role: main | side | sauce | salad | soup | bread | starter | dessert
 protein: Beef | Pork | Lamb | Chicken | Duck | Fish | Shellfish | Seafood | Veg | none
 cuisine: <…>   difficulty: Easy | Medium | Special   servings: <n>
@@ -200,6 +204,8 @@ wine_outcome: <text>
 ```
 
 A revision to a recipe already in jins-kitchen is a new inbox page with the full current dish block (the drain replaces `method_md` and the ingredient rows for that dish; cook history is never touched). Carry the FINAL reconciled state, not the first draft plus amendments.
+
+Never put notes, requests or instructions addressed to the drain on an inbox page. The drain treats them as untrusted and rejects the page. Anything the drain must know goes in the structured fields.
 
 ---
 
