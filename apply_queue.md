@@ -1,7 +1,7 @@
 # Cowork Drain Procedure — Governance Change Queue
 
 > Run on a schedule (suggested: daily, or weekly on Sunday morning before menu planning).
-> Cowork is the **only** writer to this repo. Claude and GPT propose via Notion; they never edit files here.
+> Cowork writes to this repo, and only Cowork. A Claude session linked to Jin's computer counts as Cowork: with Jin's yes in that session it applies the change directly by this same procedure (fresh clone in `/tmp` of the device shell) and records the row as Applied. Surfaces that cannot reach his computer propose via Notion; they never edit files here.
 
 ---
 

@@ -6,7 +6,7 @@ Canonical source for the cooking governance framework. Read by Claude AI project
 
 - **Files** live here as markdown, fetched by raw URL
 - **Proposed changes** live in the Notion [Governance Change Queue](https://app.notion.com/p/466bfaf3d8ed43dfa0e6a4c28caae2ef)
-- **Cowork** is the only writer — it drains approved queue rows and commits (see `apply_queue.md`)
+- **Cowork** writes, and so does any Claude session linked to Jin's computer (it counts as Cowork): the scheduled drain applies approved queue rows, and a linked session applies a change Jin approves in that session directly, recording the row as Applied (see `apply_queue.md`)
 
 Notion does not store the files themselves. A fidelity test (18 July 2026) showed its markdown round-trip corrupts them: fence collisions break block structure, brackets get escaped, blank lines are dropped, and filenames auto-link.
 
@@ -43,6 +43,6 @@ Do not edit these files directly. Add a row to the Notion queue with:
 - **New Text** — verbatim content
 - **Rationale** — the triggering failure and why it meets the recurring/generalizable threshold
 
-Jin approves. Cowork applies. See `apply_queue.md` for the full procedure.
+Jin approves. Cowork applies — on the scheduled drain, or straight away in a session linked to Jin's computer. See `apply_queue.md` for the full procedure.
 
 **Threshold:** rules are codified only when a failure is recurring or generalizable. Single occurrences are noted and deferred. Documentation inconsistencies are corrected inline without a queue row or version bump.

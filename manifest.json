@@ -5,7 +5,7 @@
   "canonical_source": "github",
   "notion_control_surface": "https://app.notion.com/p/3a1e0391ce6381dfb6dfc3b0c9e2e612",
   "change_queue": "https://app.notion.com/p/466bfaf3d8ed43dfa0e6a4c28caae2ef",
-  "note": "GitHub is canonical for file contents. Notion holds proposed changes only. Cowork is the sole writer.",
+  "note": "GitHub is canonical for file contents. Notion holds proposed changes only. Cowork is the sole writer, and a Claude session linked to Jin's computer counts as Cowork (it applies a change Jin approves in-session directly).",
   "files": [
     {
       "id": "core",
