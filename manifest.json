@@ -60,8 +60,8 @@
     {
       "id": "data_protocol",
       "file": "recipe_output_data_protocol.md",
-      "version": "1.5",
-      "date": "2026-10-15",
+      "version": "1.6",
+      "date": "2026-10-19",
       "load_when": "Recipe stable / Menu stable, save for next time, any document build, any post-cook update — persist to jins-kitchen (Supabase directly, or the Notion Kitchen Inbox)",
       "always": false
     },
