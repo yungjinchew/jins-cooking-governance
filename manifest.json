@@ -1,7 +1,7 @@
 {
   "framework": "Recipe Governance Framework",
-  "framework_version": "3.9",
-  "updated": "2026-10-12",
+  "framework_version": "3.10",
+  "updated": "2026-10-29",
   "canonical_source": "github",
   "notion_control_surface": "https://app.notion.com/p/3a1e0391ce6381dfb6dfc3b0c9e2e612",
   "change_queue": "https://app.notion.com/p/466bfaf3d8ed43dfa0e6a4c28caae2ef",
@@ -10,7 +10,7 @@
     {
       "id": "core",
       "file": "recipe_governance_core.md",
-      "version": "3.9",
+      "version": "3.10",
       "load_when": "Every recipe, dish, or cooking-method request",
       "always": true
     },
@@ -52,16 +52,16 @@
     {
       "id": "review_protocol",
       "file": "recipe_review_protocol.md",
-      "version": "1.0",
-      "date": "2026-10-02",
-      "load_when": "Every complete recipe or menu, before it is declared stable — the automatic review loop (GPT via the kitchen review service, Claude critic as fallback)",
+      "version": "1.1",
+      "date": "2026-10-29",
+      "load_when": "Every complete recipe or menu, before it is declared stable — the automatic review loop (GPT via the kitchen review service, Claude critic as fallback; up to 3 rounds plus a confirmation pass)",
       "always": false
     },
     {
       "id": "data_protocol",
       "file": "recipe_output_data_protocol.md",
-      "version": "1.6",
-      "date": "2026-10-19",
+      "version": "1.7",
+      "date": "2026-10-29",
       "load_when": "Recipe stable / Menu stable, save for next time, any document build, any post-cook update — persist to jins-kitchen (Supabase directly, or the Notion Kitchen Inbox)",
       "always": false
     },
