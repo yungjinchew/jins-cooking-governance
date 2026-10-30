@@ -1,8 +1,8 @@
-# Recipe Output — Print Protocol (v1.1, 2026-10-30)
+# Recipe Output — Print Protocol (v1.2, 2026-10-30)
 
 > One method for every printed cooking sheet. The jins-kitchen print view implements it (`jins-kitchen.netlify.app/#/print/meal/<slug>` and `/#/print/dish/<slug>`; code in `jins-kitchen/tools/print-spec/print_region.js`). A Word file follows the same content rules and page plan. Load this file to print, to change the print view, or to build any printed sheet.
 >
-> **v1.1:** flagged readings lead the Measure on the day checklist; the shopping page carries purchase units and Before you shop notes. **v1.0:** print spec 1.0 (the print-view audit).
+> **v1.2:** one stored CCP table format; a revised dish is brought up to §7 in the same save. **v1.1:** flagged readings lead the Measure on the day checklist; the shopping page carries purchase units and Before you shop notes. **v1.0:** print spec 1.0 (the print-view audit).
 
 ---
 
@@ -74,5 +74,7 @@ The print code and this file change together and carry the same version: `PRINT.
 - Method headings use Core's names: Dish Overview, Yield & Timing, Flavor Architecture, Prep Phase, Active Cooking, Holding & Assembly, Critical Control Points, Adjustment Notes, Scaling Notes. No emoji headings.
 - The Dish Overview leads with one sentence that states the target; Yield & Timing is one line (yield · total · active · oven where used).
 - No ingredient list inside the method when ingredient rows are saved.
+- Critical Control Points as a markdown table, `Class | Failure mode | Sensory cue | Recovery`, with the outcome written into the failure-mode cell (Core §VIII).
+- A dish revised for any reason is brought up to these rules in the same save: Core headings, the one-sentence overview, the one-line Yield & Timing, the CCP table format, no ingredient list in the method. The revision shows these changes with the rest; dishes are not rewritten in bulk.
 - The workflow's Critical Path names what yields first if the timeline slips, because the printed sheet carries no failure-prioritisation section; plating steps are the last T-minus rows.
 - Ingredient names keep their proper nouns (Granny Smith, Diamond Crystal, Maris Piper, MB5+).

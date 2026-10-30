@@ -1,4 +1,4 @@
-# Recipe Governance — Core (v3.11)
+# Recipe Governance — Core (v3.12)
 
 > Split-file architecture: this file loads for every recipe, dish, or cooking-method request.
 > Add `recipe_governance_meal_workflow.md` for multi-component menus.
@@ -170,7 +170,7 @@ High-impact or irreversible failure points only — no padding. Order by severit
 
 **Same-class ordering:** (1) point of no return — earlier in the cook = higher rank; (2) magnitude — dish-unacceptable outranks quality-degrading.
 
-**Required per CCP:** Failure mode · Outcome · Sensory cue (observable, not time-based) · Recovery (or "unrecoverable")
+**Required per CCP:** Failure mode with its outcome · Sensory cue (observable, not time-based) · Recovery (or "unrecoverable"). Stored as a four-column markdown table, `Class | Failure mode | Sensory cue | Recovery`, with the outcome written into the failure-mode cell (e.g. "Overshoots past 52°C at the centre: grey band, dry slices"). A dish saved in an older layout is converted when it is next revised (print protocol §7); older dishes are not rewritten in bulk.
 
 **Cue taxonomy:** Primary = stop/continue decision trigger. Secondary = corroborates primary. Observational = descriptive only, not a decision trigger. Every doneness spec requires at least one Primary cue.
 
@@ -260,7 +260,7 @@ Runtime adaptation: The output protocols define mandatory structure, pagination 
 
 The full list, with the meal workflow's planning and check sections, is print protocol §3.1–§3.2.
 
-**CCP table:** printed without an Outcome column (print protocol §3.2).
+**CCP table:** stored as `Class | Failure mode | Sensory cue | Recovery` (Section VIII); a table in an older layout prints without its Outcome column (print protocol §3.2).
 
 **Adjustment Notes:** Not a separate table. Rendered as a single italic sentence or short paragraph immediately after the Holding & Assembly section. Prefix: *"Adjust: …"*
 
