@@ -1,6 +1,8 @@
-# Recipe Output — Word (.docx) Cooking Sheet Protocol (v1.0)
+# Recipe Output — Word (.docx) Cooking Sheet Protocol (v1.1)
 
-> Companion to `recipe_output_html_protocol.md`. Apply when the user requests a Word document, a "document," or an export to Word.
+> **v1.1 (2026-10-30):** content and page plan follow `recipe_output_print_protocol.md`, so a Word file and the app's print view carry the same sheet.
+>
+> Content rules and page plan: `recipe_output_print_protocol.md` §3–§4. This file adds what is specific to Word. Apply when the user requests a Word document, a "document," or an export to Word.
 > Governance rules that are format-independent live in `recipe_governance_core.md` Section XI-B and govern this file.
 
 ---
@@ -11,7 +13,7 @@ Generate a Word document when the user explicitly instructs it:
 
 - "generate the Word doc," "export to Word," "generate the document," "make me a docx"
 
-**"Generate the document" means docx, not HTML.** Any document request, regardless of exact wording, defaults to docx unless HTML is explicitly named. HTML is produced only on explicit request ("generate the HTML," "cooking sheet," "printable version," "export to HTML").
+**"Generate the document" means docx, not HTML.** Any document request, regardless of exact wording, defaults to docx unless HTML is explicitly named. No HTML is built: "print it", "cooking sheet" and "printable version" open the app's print view, and "export to HTML" saves that view from the browser (print protocol §1).
 
 Do **not** generate automatically after producing a recipe or meal in chat. Explicit instruction required.
 
@@ -38,23 +40,11 @@ Where a menu has been through a review cycle in-conversation, the **final reconc
 | Property | Value |
 |---|---|
 | Paper | A4 (11906 × 16838 DXA) |
-| Margins | 0.75" all sides (1080 DXA) |
-| Content width | 9746 DXA |
+| Margins | 21 mm top, 19 mm sides, 17 mm bottom (1191 / 1077 / 964 DXA) |
+| Content width | 172 mm (9751 DXA) |
 | Font | Arial throughout |
 
-**Type scale:**
-
-| Element | Size | Weight | Color |
-|---|---|---|---|
-| Meal title | 15pt | bold | `#1B5E7B` teal |
-| Dish name (H1) | 13pt | bold | `#1B5E7B` teal |
-| Section header (H2) | 11pt | bold | `#333333` gray |
-| Phase header (H3) | 10pt | bold | `#1B5E7B` teal |
-| Body / steps | 9.5pt | regular | `#222222` |
-| Table cells | 8–9pt | regular | `#222222` |
-| Table header row | 7.5–8pt | bold | `#333333` on `#D0E8F0` |
-| Timing info row | 9pt | italic | `#555555` on `#EFEFEF` |
-| Page header / footer | 7.5pt | — | teal / `#999999` |
+**Type scale:** print protocol §2 — meal title 16 pt; dish name 13 pt teal; section labels 9.5 pt uppercase; body 9.5 pt, line height 1.35; tables and notes 8.5 pt; running header 8 pt bold teal with the page number 7.5 pt grey; footer 7 pt grey. Never shrink type below these sizes to save a page.
 
 **Color system:** teal `#1B5E7B` · gray `#333333` · teal-light `#D0E8F0` (table header fills) · CCP severity fills: Critical `#FEE2E2`, Major `#FEF3C7`, Minor `#F3F4F6`.
 
@@ -80,7 +70,7 @@ elements.push(h2('Shopping List'));
 elements.push(h2('Shopping List', /* pageBreakBefore */ true));
 ```
 
-Apply to every section and dish transition. Implement by giving heading helpers (`dishName`, `h2`) an optional `pageBreakBefore` parameter.
+Apply wherever the page plan (print protocol §4) starts a page. Implement by giving heading helpers (`dishName`, `h2`) an optional `pageBreakBefore` parameter.
 
 ### 2. Verify page structure before delivery
 
@@ -96,14 +86,7 @@ Any page whose only content is the running header/footer is a blank-page defect 
 
 ### 3. Section page assignments (multi-component meals)
 
-| Content | Placement |
-|---|---|
-| Menu overview + Meal Workflow | Page 1 (continues as needed) |
-| Shared Prep | Own page — `pageBreakBefore` |
-| Shopping List | Own page — `pageBreakBefore` |
-| Each dish | Own page — `pageBreakBefore` on the dish name |
-
-Shared Prep and Shopping List must **not** share a page. A long dish spanning two pages is correct and expected; a *blank* page is not.
+Follow print protocol §4: the cover (title, menu, shared prep, workflow) flows from page 1; `pageBreakBefore` on the name of each main or soup; every other dish `keepNext` / `keepLines` so it stays whole; the shopping list only when Jin asks, on page 1, with the cover from page 2. A long dish across two pages is expected; a blank page is a defect.
 
 ### 4. Footer page numbering
 
@@ -115,24 +98,13 @@ Use live Word fields (`PageNumber.CURRENT`) in the header, not hardcoded numbers
 
 In order:
 
-1. Dish name — H1, teal, 13pt bold, `pageBreakBefore: true` (except the first dish if it opens the document)
-2. **Yield & Timing** — a compact shaded info row (single-cell table, `#EFEFEF` fill, italic gray), immediately below the dish name
-3. Dish overview — one sentence, flavor and texture target only
-4. Ingredients — two-column table (Ingredient | Amount), 67% / 33%, tight rows, right-aligned amounts, section divider rows in `#F0F0F0` with uppercase small label
-5. Recipe sections — H2 headers (Prep Phase, Active Cooking, Holding & Assembly), numbered steps with hanging indent, compact spacing
-6. CCP table — **four columns** (see below)
-7. Adjust note — single italic paragraph, "Adjust:" prefix
+Print protocol §3.2, in that order.
 
 ---
 
-## CCP Table (docx — four columns)
+## CCP Table (docx)
 
-Unlike the HTML cooking sheet (three columns), the docx retains the Outcome-adjacent detail by splitting cue from failure mode:
-
-| Class | Failure Mode | Sensory Cue | Recovery |
-|---|---|---|---|
-
-Approximate widths: 10% · 34% · 26% · 30%. Row fill by severity class (Critical/Major/Minor per the color system). Class cell bold. 8pt cells, 7.5–8pt header.
+Class | Failure mode | Sensory cue | Recovery, widths 10 / 34 / 26 / 30 %, row fill by severity (print protocol §3.2). Class cell bold.
 
 ---
 
@@ -156,10 +128,7 @@ docx has no markdown parser. Emphasis must be applied as `TextRun` properties (`
 
 ## Multi-Component Meal Structure
 
-1. **Page 1** — Meal title, menu bullet list, then the Meal Workflow (critical path, failure prioritization, oven sequencing, parallel vs. sequential, holding chain table, T-minus timeline, meal balance audit). Continues to page 2 as needed.
-2. **Shared Prep** — own page
-3. **Shopping List** — own page, cross-tab format (Ingredient · Total · one column per dish), grouped by section
-4. **Dishes** — each on its own page, in service order
+Print protocol §3.1 and §4: the cover (title, menu, shared prep, the workflow as printed) flows from page 1; the Measure on the day checklist where the print protocol places it; the shopping list only when asked, on page 1, with the cover from page 2; dishes in service order, each main or soup starting a page.
 
 ---
 
@@ -179,15 +148,14 @@ Do not deliver without steps 3–5. Pagination defects are invisible in the buil
 ## Governance Compliance Checklist (Internal — Do Not Output)
 
 - [ ] Source is the final reconciled recipe — not an earlier draft or memory
-- [ ] A4, 0.75" margins, Arial throughout
+- [ ] A4, margins 21 / 19 / 17 mm, Arial, type scale per print protocol §2
 - [ ] Color system applied: teal dish names, gray section headers, teal-light table headers
 - [ ] Header on every page (name + date left, live page number right); footer with generation date
 - [ ] **All section/dish breaks via `pageBreakBefore` on the heading — no standalone break paragraphs**
 - [ ] **PDF rendered and every page confirmed to carry real content — zero blank pages**
-- [ ] Shared Prep and Shopping List each on their own page, not shared
-- [ ] Each dish starts on a new page
-- [ ] Per-dish sequence: name → shaded timing row → overview → ingredients → sections → CCPs → Adjust note
-- [ ] CCP table has four columns (Class · Failure Mode · Sensory Cue · Recovery) with severity fills
+- [ ] Page plan per print protocol §4: mains and soups start a page; other dishes whole; shopping list only when asked
+- [ ] Per-dish sequence per print protocol §3.2
+- [ ] CCP table: Class · Failure mode · Sensory cue · Recovery with severity fills; no Outcome column
 - [ ] Adjustment Notes rendered as a single italic "Adjust:" paragraph, not a table
 - [ ] Flavor Architecture and Scaling Notes omitted per Core XI-B
 - [ ] No literal markdown characters anywhere in the rendered output

@@ -22,6 +22,12 @@ Query the queue for `Status = "Approved"`. Sort ascending by `Date Proposed` so 
 
 If there are no approved rows, stop. Report "queue empty."
 
+### 1a. Preflight push access
+
+Before applying anything, confirm the push credential can write: run `git push --dry-run` against main. A 401/403 or "write access not granted" means stop: leave every row Approved, change nothing, and report the credential problem with the fix (Contents: Read and write on this repo, or a regenerated token). Where the GitHub API is reachable, also read the token's expiry header and warn when it is within 14 days.
+
+If a push still fails after the preflight passed, leave the applied rows Approved and write PUSH FAIL with the error and date into each row's Commit field, so the queue shows what is stuck. A later successful run overwrites that note with the SHA.
+
 ### 2. Sync the repo
 
 ```bash
@@ -59,7 +65,8 @@ Where **Version After** is set, update:
 
 - The version in the target file's H1 header
 - The matching `version` field in `manifest.json`
-- `framework_version` and `updated` in `manifest.json` if a core file changed
+- `framework_version` in `manifest.json` if a core file changed
+- `updated` in `manifest.json` on every commit that changes a governance file, version bump or not: Core's snapshot-consistency check compares it
 
 ### 5. Commit and push
 
@@ -74,7 +81,7 @@ git push
 Re-fetch each changed file from its raw URL and confirm **New Text** is present. A successful push that doesn't produce the expected content is a silent failure — report it if it occurs.
 
 ```bash
-curl -s https://raw.githubusercontent.com/<REPO>/main/<file> | grep -F "<distinctive phrase from New Text>"
+curl -s https://raw.githubusercontent.com/<REPO>/refs/heads/main/<file> | grep -F "<distinctive phrase from New Text>"
 ```
 
 ### 7. Write back to Notion

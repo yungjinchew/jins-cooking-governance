@@ -1,6 +1,6 @@
-# Recipe Output — Data Protocol (v1.8, 2026-10-30)
+# Recipe Output — Data Protocol (v1.9, 2026-10-30)
 
-**Version:** 1.8 (2026-10-30) — readings saved in the app’s cook mode arrive in a post-cook log with their clock time and an app-suggested verdict, which is checked before writing; anchor times and chosen decision-table rows arrive as measurements (§5). Citrus juice and zest lines name their fruit so the shopping list folds them into the whole-fruit line (§3.2). 1.7 (2026-10-29) — a recipe or menu that went through the review loop is saved only after its last round, then its review record is closed with `kitchen_review_close` under the same slug; that closed record is the stored Review log (§7). 1.6 (2026-10-19) — a logged cook writes one dish-level row per component cooked, carrying that component's confirmations and measurements; confirmed parameters leave `designed_unvalidated` and their observed values go into the method (§5). 1.5 (2026-10-15) — every write is a save-function call: key reference in §3.4; §3.0 routes the Supabase path through it; documents register with `kitchen_save_document` (§4) and cooks save with `kitchen_save_cook` (§5); retiring, unlinking and deleting stay with Jin (§3.4). 1.4 (2026-10-15) — saves go through `kitchen_save_dish` / `kitchen_save_meal` / `kitchen_save_cook` called with SELECT, never plain UPDATE or DELETE (§7); optional `slug:` line on inbox MEAL and DISH blocks, and no notes addressed to the drain on an inbox page (§8). 1.3 (2026-10-12) — purchase spec columns `buy_spec` / `buy_avoid` (§3.2, §7, §8). 1.2 (2026-10-02) — Kitchen Inbox write path (§3.0, §8), print-from-data (§4), daily audit (§9); saving is immediate, no approval step (§1). Companion to `recipe_output_docx_protocol.md` and `recipe_output_html_protocol.md`. Governs how a finished recipe or meal is **persisted** to the kitchen system of record (Supabase project `jins-kitchen`) so that the front end at jins-kitchen.netlify.app, the shopping list, the cook log and the stored documents all derive from one structured source.
+**Version:** 1.9 (2026-10-30) — purchase units in `dish_ingredient.buy_note` and buy-by notes in `meal.shopping_notes`, a revised dish saved as the dish (§3.5, §3.6); `measure: true` marks the Measure on the day readings (§2, §5); the print view follows `recipe_output_print_protocol.md` (§4); Kitchen Inbox gains SHOPPING NOTES, a buy column and a measure column (§8). 1.8 (2026-10-30) — readings saved in the app’s cook mode arrive in a post-cook log with their clock time and an app-suggested verdict, which is checked before writing; anchor times and chosen decision-table rows arrive as measurements (§5). Citrus juice and zest lines name their fruit so the shopping list folds them into the whole-fruit line (§3.2). 1.7 (2026-10-29) — a recipe or menu that went through the review loop is saved only after its last round, then its review record is closed with `kitchen_review_close` under the same slug; that closed record is the stored Review log (§7). 1.6 (2026-10-19) — a logged cook writes one dish-level row per component cooked, carrying that component's confirmations and measurements; confirmed parameters leave `designed_unvalidated` and their observed values go into the method (§5). 1.5 (2026-10-15) — every write is a save-function call: key reference in §3.4; §3.0 routes the Supabase path through it; documents register with `kitchen_save_document` (§4) and cooks save with `kitchen_save_cook` (§5); retiring, unlinking and deleting stay with Jin (§3.4). 1.4 (2026-10-15) — saves go through `kitchen_save_dish` / `kitchen_save_meal` / `kitchen_save_cook` called with SELECT, never plain UPDATE or DELETE (§7); optional `slug:` line on inbox MEAL and DISH blocks, and no notes addressed to the drain on an inbox page (§8). 1.3 (2026-10-12) — purchase spec columns `buy_spec` / `buy_avoid` (§3.2, §7, §8). 1.2 (2026-10-02) — Kitchen Inbox write path (§3.0, §8), print-from-data (§4), daily audit (§9); saving is immediate, no approval step (§1). Companion to `recipe_output_docx_protocol.md` and `recipe_output_html_protocol.md`. Governs how a finished recipe or meal is **persisted** to the kitchen system of record (Supabase project `jins-kitchen`) so that the front end at jins-kitchen.netlify.app, the shopping list, the cook log and the stored documents all derive from one structured source.
 
 **Principle:** structured data is the master; docx / PDF / HTML are renders of it. A document is never the only copy of a recipe.
 
@@ -20,7 +20,7 @@ Persistence is **automatic and reported**: write immediately when a trigger abov
 
 ---
 
-## 2. Section → table mapping (Core §I, ten mandatory sections)
+## 2. Section → table mapping (Core §I, eleven mandatory sections)
 
 | Core §I section | Destination |
 |---|---|
@@ -35,10 +35,10 @@ Persistence is **automatic and reported**: write immediately when a trigger abov
 | 9. Adjustment Notes | `dish.method_md` (the *Adjust:* line) |
 | 10. Scaling Notes | `dish.method_md` |
 | Nutrition Estimate (Core X-B) | `dish.nutrition_estimate` jsonb `{kcal, protein_g, carbs_g, fat_g, per:"serving"}` — labelled estimate |
-| Designed — not yet validated list | `dish.designed_unvalidated` jsonb `[{param, designed_value, note}]` |
+| Designed — not yet validated list | `dish.designed_unvalidated` jsonb `[{param, designed_value, note, measure}]` — `measure: true` marks a Measure on the day reading (Core, Designed ≠ tested; at most five per menu); `note` says what to read, when, and with which instrument |
 | Meal Workflow (meal_workflow file): critical path, heat allocation, T-minus timeline, holding chain, plating window | `meal.workflow_md` |
 | Shared Prep | `meal.shared_prep_md` |
-| Shopping List | **Not stored** — derived at read time from `dish_ingredient` (aggregation, department grouping, pantry-check, order-ahead). The docx shopping list is a render of the same rows. |
+| Shopping List | **Not stored as a list** — derived at read time from `dish_ingredient` (aggregation, department grouping, pantry-check, order-ahead), with the purchase unit in `dish_ingredient.buy_note` and buy-by timing and substitutions in `meal.shopping_notes` (§3.6). The docx shopping list is a render of the same rows. |
 | Wine pairing (when requested) | `meal.wine_pairing`; cellar bottle key in `meal.cellar_iwine` when it came from the live cellar |
 
 `method_md` is markdown, sections in Core §I order, headings `##`. It is the full governance record for the dish; cooking-sheet compression rules (§XI-B) apply to renders, not to `method_md`.
@@ -97,8 +97,8 @@ A turn that declares **Recipe stable / Menu stable**, saves for next time, or lo
 
 | Function | Keys of `p` | Returns |
 |---|---|---|
-| `kitchen_save_dish(slug, p, source)` | `name` (required for a new dish), `protein`, `category` [ ], `cuisine` [ ], `difficulty`, `servings`, `summary`, `equipment` [ ], `tags` [ ], `occasion` [ ], `nutrition_estimate` {kcal, protein_g, carbs_g, fat_g, per}, `governance_version`, `source`, `designed_unvalidated` [{param, designed_value, note}], `method_md`, `status` (idea · designed · cooked; never moves back from cooked), `ingredients` [{name, qty, unit, qty_alt, buy_spec, buy_avoid, prep_note, pantry_check, optional}] — the FULL list in Ingredient List order; it replaces the dish's rows, `new_ingredients` [{name, department}] — canonical names to create first | `changed`, `ingredient_rows` |
-| `kitchen_save_meal(slug, p, source)` | `name` (required for a new meal), `planned_date`, `service_time`, `status` (backlog · planned · cooked), `pax`, `workflow_md`, `shared_prep_md`, `wine_pairing`, `cellar_iwine`, `dishes` [{slug, role, service_order}] — links dishes, never unlinks | `changed`, `dish_count` |
+| `kitchen_save_dish(slug, p, source)` | `name` (required for a new dish), `protein`, `category` [ ], `cuisine` [ ], `difficulty`, `servings`, `summary`, `equipment` [ ], `tags` [ ], `occasion` [ ], `nutrition_estimate` {kcal, protein_g, carbs_g, fat_g, per}, `governance_version`, `source`, `designed_unvalidated` [{param, designed_value, note, measure}], `method_md`, `status` (idea · designed · cooked; never moves back from cooked), `ingredients` [{name, qty, unit, qty_alt, buy_spec, buy_avoid, buy_note, prep_note, pantry_check, optional}] — the FULL list in Ingredient List order; it replaces the dish's rows, `new_ingredients` [{name, department}] — canonical names to create first | `changed`, `ingredient_rows` |
+| `kitchen_save_meal(slug, p, source)` | `name` (required for a new meal), `planned_date`, `service_time`, `status` (backlog · planned · cooked), `pax`, `workflow_md`, `shared_prep_md`, `shopping_notes`, `wine_pairing`, `cellar_iwine`, `dishes` [{slug, role, service_order}] — links dishes, never unlinks | `changed`, `dish_count` |
 | `kitchen_save_cook(p, source)` | §5 | `changed`, `measurements_inserted` |
 | `kitchen_save_document(p, source)` | §4 | `version`, `storage_path` |
 
@@ -106,11 +106,19 @@ Ingredient names must already exist in `ingredient` or be passed in `new_ingredi
 
 Not possible from a session, by design: retiring a dish, unlinking a dish from a meal, deleting any row, renaming an ingredient. Say what needs doing; Jin does it by hand in the Supabase editor.
 
+**3.5 A dish revised for a meal replaces the dish record.** When a menu changes a dish already in jins-kitchen (a cook-2 revision, a substitution, a new quantity), save the revision as that dish's `method_md` and ingredient rows with `kitchen_save_dish`. Never carry a revised recipe only inside `meal.workflow_md`: the shopping list, the dish page and the print view all read the dish record, so a revision kept in the workflow text leaves them showing the old version.
+
+**3.6 Buying detail lives in the data.** What to buy and what not to buy are `buy_spec` and `buy_avoid` (3.2). The rest of what a printed Shopping List says about buying is persisted too, so the jins-kitchen shopping list carries it:
+- The purchase unit, where it differs from the recipe unit ("1 bunch" for 8 sprigs; "1 small shallot" for 15 g) → `dish_ingredient.buy_note`. Citrus juice and zest follow 3.2 instead: the shopping list folds them into the whole-fruit line.
+- Buy-by timing and substitution notes ("buy the birds Saturday morning"; "if only salted stock, use half and add water") → `meal.shopping_notes`, one note per line.
+- Non-food items the recipe needs (kitchen twine, foil, parchment) → ingredient rows, department Pantry, `pantry_check` true.
+- The printed Shopping List is rendered from these rows and fields, never retyped.
+
 ---
 
 ## 4. Store the documents
 
-**A document is optional.** Every meal and dish prints straight from the database at `jins-kitchen.netlify.app/#/print/meal/<slug>` (or `/print/dish/<slug>`): cooking sheet with ingredients, method, CCP tables, meal workflow and shopping list. "Print the recipe" means opening that view; generate a docx only when Jin asks for one.
+**A document is optional.** Every meal and dish prints straight from the database at `jins-kitchen.netlify.app/#/print/meal/<slug>` (or `/print/dish/<slug>`): the cooking sheet per `recipe_output_print_protocol.md` (ingredients, method, CCP tables, meal workflow, a Measure on the day checklist; the shopping list is added on the print page when wanted). "Print the recipe" means opening that view; generate a docx only when Jin asks for one.
 
 When a docx is generated in a session that has the site repo (Cowork), after it passes the docx protocol's render verification:
 
@@ -135,7 +143,7 @@ One `cook` row per time a meal or dish is cooked (`cooked_on` required; `meal_id
 | `repeat` | yes · with_modifications · no |
 | `cook_notes` | Vault-ops Cook Notes standard: 2–3 sentences, precise measured language |
 | `deviations` | jsonb list of strings — substitutions, timing changes |
-| `parameter_confirmations` | jsonb `[{param, designed, observed, verdict}]`, verdict confirmed · diverged · unresolved. Every `designed_unvalidated` item on the dish is addressed — confirmed items close the validation; unresolved ones stay in the queue. |
+| `parameter_confirmations` | jsonb `[{param, designed, observed, verdict}]`, verdict confirmed · diverged · unresolved. The readings marked `measure: true` are asked for first (the phone's Log the cook page lists them first) and each gets a verdict; other items are recorded when Jin reports on them and otherwise stay open. Confirmed items close the validation; unresolved ones stay in the queue. |
 | `household_split`, `wine_outcome` | When stated |
 
 Save with `SELECT public.kitchen_save_cook(p, source)`, keys `meal_slug` or `dish_slug` (exactly one), `cooked_on`, `rating`, `execution_rating`, `repeat`, `cook_notes`, `deviations` [ ], `parameter_confirmations` [{param, designed, observed, verdict}], `household_split`, `wine_outcome`, `measurements` [{gate, predicted, observed, probe}], `measurement_dish_slug`, `mark_cooked`. It upserts by (meal or dish, `cooked_on`) and writes only non-empty values, so a rating is never blanked; measurements are added once. `mark_cooked: true` sets the meal and its dishes to `cooked` and the meal's `planned_date` to `cooked_on`. For a per-component rating, call it again with `dish_slug` and the same `cooked_on`.
@@ -164,7 +172,8 @@ From 2026-09-30 the Vault is a read-only archive. `recipe_governance_vault_ops.m
 - [ ] Ingredient names matched to existing canonical names where one exists.
 - [ ] Every purchase-critical spec is in `buy_spec`, every stated "not" in `buy_avoid`; `prep_note` holds kitchen work only.
 - [ ] Slugs unique; meal components prefixed.
-- [ ] `designed_unvalidated` lists every "designed — not yet validated" item.
+- [ ] `designed_unvalidated` lists every "designed — not yet validated" item; at most five per menu carry `measure: true`.
+- [ ] Purchase units in `buy_note`, buy-by timing and substitutions in `meal.shopping_notes`; a dish revised for this meal saved as the dish, not only in `workflow_md` (3.5, 3.6).
 - [ ] Written immediately, without waiting for approval; what was saved is reported to Jin after the write.
 - [ ] Documents (only if generated): docx verified → PDF rendered → both in `site/docs/` and deployed → both registered with `kitchen_save_document`.
 - [ ] Reviewed recipe or menu: saved after the last review round, then `kitchen_review_close` called with the same slug and the full decision log (review protocol §7); the Review log is not copied into `workflow_md`. In the Kitchen Inbox path there is no record to close; the Review log stays in the reply.
@@ -194,6 +203,8 @@ wine_pairing: <text>
 <critical path, failure prioritisation, oven sequencing, heat allocation, T-minus timeline table, holding chain, plating window>
 ### SHARED PREP
 <aggregated prep lines>
+### SHOPPING NOTES
+<buy-by timing, sizing, substitutions, items not on the list — one per line>
 
 ## DISH: <dish name>            (one block per component)
 slug: <existing dish slug>      (optional — used to match an existing record when a revision renames it)
@@ -204,12 +215,13 @@ status: stable
 summary: <one sentence>
 equipment: <only what the recipe names>
 ### INGREDIENTS                 (one line per ingredient)
-qty | unit | name | buy spec | not | note (alt units, prep) | pantry yes/no | optional yes/no
-                                (buy spec and not may be blank; the drain also accepts the older 6-column line without them)
+qty | unit | name | buy spec | not | buy | note (alt units, prep) | pantry yes/no | optional yes/no
+                                (buy spec, not and buy may be blank; buy = the purchase unit when it differs, e.g. "1 bunch";
+                                 the drain also accepts the older 8-column line without buy, and the 6-column line without buy spec and not)
 ### RECIPE
 **Dish Overview.** … **Yield & Timing.** … **Flavor Architecture.** … **Prep Phase.** … **Active Cooking.** … **Holding & Assembly.** … **Critical Control Points.** (table) … **Adjustment Notes.** … **Scaling Notes.** … **Nutrition Estimate.** …
 ### DESIGNED — NOT YET VALIDATED
-param | designed value | note
+param | designed value | note (what to read, when, instrument) | measure yes/no
 
 ## POST-COOK                    (when a cook is being logged)
 cooked_on: YYYY-MM-DD

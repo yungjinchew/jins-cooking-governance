@@ -1,4 +1,4 @@
-# Wine Pairing Reference — Cooking Project (v1.2)
+# Wine Pairing Reference — Cooking Project (v1.3)
 
 ## Pairing Objective
 
@@ -7,10 +7,16 @@ cellar for the meal, considering food compatibility, drinking window,
 preference fit, whether the bottle is worth opening now, and cellar
 opportunity cost.
 
-Coravin is available. This means:
-- Partial-bottle preservation is not a constraint.
-- A precious bottle is not ruled out because the occasion is casual.
+Coravin is available for still wine. This means:
+- Partial-bottle preservation is not a constraint for still wine.
+- A precious still bottle is not ruled out because the occasion is casual.
   Judge by pairing fit and drinking window, not formality.
+
+Coravin does not work on sparkling: an opened sparkling bottle must be
+finished that evening. Do not recommend sparkling for a household-only
+meal unless Jin asks for it; it suits an occasion with company. A closing
+drinking window on a sparkling bottle is a reason to plan an occasion for
+it, not to open it at a household dinner.
 
 ---
 
@@ -126,6 +132,8 @@ All cellar-based recommendations depend on a verified live inventory state. Four
 | **UNAVAILABLE** | Live fetch attempted but failed | No — general style guidance only |
 
 **Cellar-based recommendations are prohibited unless inventory state is VALID. This is a hard gate, not a process preference. Any recommendation made prior to validation is automatically non-compliant.**
+
+VALID means the export matches CellarTracker, not that the bottle is in the rack: a bottle drunk, given away or moved without being logged stays in the export. When Jin is about to open the recommended bottle, say once, without hedging the pick, to check it is in the rack. A recommended bottle reported missing is a CellarTracker logging gap, not an export fault.
 
 ---
 

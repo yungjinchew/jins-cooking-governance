@@ -14,17 +14,22 @@ Notion does not store the files themselves. A fidelity test (18 July 2026) showe
 
 ## Files
 
-| File | Version | Load when |
-|---|---|---|
-| `recipe_governance_core.md` | v3.4 | Every recipe, dish, or cooking-method request |
-| `recipe_governance_meal_workflow.md` | v3.4 | Two or more components served together |
-| `recipe_governance_vault_signals.md` | v3.4 | A Vault digest is active, or Vault retrieval shapes a recipe |
-| `recipe_governance_vault_ops.md` | v3.4 | Creating, updating, or preparing a Vault entry |
-| `recipe_output_docx_protocol.md` | v1.0 | Generating a Word document (incl. bare "generate the document") |
-| `recipe_output_html_protocol.md` | v1.2 | Generating an HTML cooking sheet |
-| `wine_pairing_cooking_reference.md` | — | Wine, beverage, cellar, or pairing recommendation |
+| File | Load when |
+|---|---|
+| `recipe_governance_core.md` | Every recipe, dish, or cooking-method request |
+| `recipe_governance_meal_workflow.md` | Two or more components served together |
+| `recipe_governance_vault_signals.md` | A Vault digest is active, or Vault retrieval shapes a recipe |
+| `recipe_governance_vault_ops.md` | Creating, updating, or preparing a Vault entry |
+| `recipe_output_docx_protocol.md` | Generating a Word document (incl. bare "generate the document") |
+| `recipe_output_print_protocol.md` | Printing a meal or dish, changing the app's print view, or building any printed sheet (Word or HTML) |
+| `recipe_output_html_protocol.md` | HTML named ("export to HTML"): points to the app's print view |
+| `recipe_review_protocol.md` | Every complete recipe or menu, before it is declared stable |
+| `recipe_output_data_protocol.md` | Recipe stable / Menu stable, save for next time, a document build, a cook log |
+| `wine_pairing_cooking_reference.md` | Wine, beverage, cellar, or pairing recommendation |
 
-`manifest.json` lists the same set machine-readably — fetch it first to discover current versions.
+Current versions live in `manifest.json` only, so this table cannot fall behind.
+
+`manifest.json` lists the same set machine-readably — fetch it first to discover current versions. Raw base: `https://raw.githubusercontent.com/yungjinchew/jins-cooking-governance/refs/heads/main/` (the short `/main/` form can serve a cached copy).
 
 ---
 

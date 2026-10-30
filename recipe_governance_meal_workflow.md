@@ -1,4 +1,4 @@
-# Recipe Governance — Meal Workflow (v3.9)
+# Recipe Governance — Meal Workflow (v3.11)
 
 > Load in addition to `recipe_governance_core.md` when generating two or more components served together.
 
@@ -24,13 +24,15 @@ Produce a standalone Meal Workflow document in addition to individual recipes. T
 
 **Holding chain:** For each component completing before service — holding vessel, temperature, covered/uncovered, max hold time. For each drift risk, state the corrective action (e.g., "mash will tighten after 20 min — loosen with warm milk before plating" — not "mash may thicken"). **A hold ends when the component reaches the plate or the table.** Measure every hold — in the holding chain and in the variance-band check — from the component's finish to the moment it is actually plated, counted in the plating order: a component plated last waits longest, so its hold runs to the end of the plating window, not to its start. A sauce, bread or condiment that stays on the table holds through service. Never stop the count at the start of plating or at the moment the next component needs the station.
 
-**Reserved-portion diversion (planned leftovers):** Where extra is cooked deliberately for later meals, divert the reserved portion **before** any à-la-minute finishing step rather than after. Finishes that are designed to degrade quickly — glazes, lacquers, crisped surfaces, dressed salads — should not be applied to a portion that will be stored; they store poorly and are better rebuilt fresh on reheat. State in the workflow: at which step the reserve is pulled, that it is pulled unfinished, how it is cooled and stored, and the reheat method that rebuilds the finish. Where the finishing sauce or dressing is also needed later, split it into an explicit leftover-reserve portion at the point of making it. Reserved portions require their own holding-chain row and a food-safety cooling CCP where a hot item is being stored.
+**Reserved-portion diversion (planned leftovers):** Where extra is cooked deliberately for later meals, divert the reserved portion **before** any à-la-minute finishing step rather than after. Finishes that are designed to degrade quickly — glazes, lacquers, crisped surfaces, dressed salads — should not be applied to a portion that will be stored; they store poorly and are better rebuilt fresh on reheat. State in the workflow: at which step the reserve is pulled, that it is pulled unfinished, how it is cooled and stored, and the reheat method that rebuilds the finish. Where the finishing sauce or dressing is also needed later, split it into an explicit leftover-reserve portion at the point of making it. Reserved portions require their own holding-chain row. A hot item being stored is cooled under Core's two-stage cooling check (Food-safety floor), stated as a safety requirement and not as a CCP: the CCP severity scale is culinary. Its checks are timeline rows (Timeline format).
 
 **Sides scope for planned leftovers:** Scale only the components whose leftover value is real. Do not reflexively scale sides that degrade within a day (dressed salads, crisped or charred items) — state that they remain sized for the served meal and why.
 
 **Final plating window:** Order of plating, time available between first plate and service, what fails first if the window is missed.
 
-**Timeline format:** T-minus sequence — each row: "T-XX: [action]." Prose, unordered lists, and non-chronological tables do not satisfy this requirement. For any step with a defined duration, hold window, or maximum tolerance, state the actual duration inline alongside the T-minus reference. Example: "T-20: Steak exits oven — rest uncovered 13 min (sear at T-7)." This allows the cook to track individual step durations independently if service time shifts — the T-minus locates the step in the sequence; the inline duration makes it self-contained.
+**Timeline format:** a T-minus table, one row per step (`| Time | Action |`). The Time cell is a T-minus time (T−90; a band as T−21 to T−15), a clock time for a step on an earlier day (Sat 5:00 pm), or an offset in minutes from a marked event: the anchoring component's exit (E+5; a band as E+5 to E+8; decimals allowed, E+1.5), or another event the workflow marks in its own row (P+20 after "P — purée into the Tiger"). Prose, unordered lists and non-chronological tables do not satisfy this requirement: cook mode and the print view's clock column read only the table. For any step with a defined duration, hold window, or maximum tolerance, state the actual duration inline in the Action cell. Example: `| T−20 | Steak exits oven — rest uncovered 13 min (sear at T−7). |` This allows the cook to track individual step durations independently if service time shifts — the T-minus locates the step in the sequence; the inline duration makes it self-contained.
+
+**Holds and cooling checks are rows.** Every hold the cook must act on is a timeline row with its temperature where one applies and its limit, passive holds included ("Purée into the Tiger, Keep Warm, lid closed; above 60°C / 140°F; up to 60 min"). For food that is kept, the cooling checks are timeline rows: the start, the 1 h check, ≤21°C / 70°F by 2 h and ≤5°C / 41°F by 6 h, each with its reheat-or-discard branch (Core, Food-safety floor). The plating steps are the last rows.
 
 **Timeline arithmetic verification:** Verify in both directions before finalising: (a) forward — each timestamp consistent with the recipe phase duration; (b) backward from service — no hold window exceeded. Flag any unverifiable timestamp. Do not assume buffer time unless explicitly named.
 
@@ -97,7 +99,7 @@ For every multi-component meal, generate a consolidated Shopping List after the 
 
 Sort alphabetically within each section. Omit sections with no items. Mark likely pantry items with *(pantry check)* rather than omitting them.
 
-**Sourcing notes:** After the table, add a brief notes block for any item where: (a) a single purchase non-obviously covers multiple uses (e.g., one parsley bunch covering salad, braise, and garnish), (b) a substitution is relevant, or (c) a quantity requires sourcing clarification. Omit the notes block if nothing material to flag. Sourcing notes explain; they never carry the only statement of what to buy or what not to buy — that belongs on the row.
+**Sourcing notes ("Before you shop"):** Above the table, as `meal.shopping_notes` (data protocol 3.6), add a brief notes block for any item where: (a) a single purchase non-obviously covers multiple uses (e.g., one parsley bunch covering salad, braise, and garnish), (b) a substitution is relevant, or (c) a quantity requires sourcing clarification. Omit the notes block if nothing material to flag. Sourcing notes explain; they never carry the only statement of what to buy or what not to buy — that belongs on the row.
 
 Include rice in the shopping list once type and quantity are confirmed, normally marked (pantry check). If type is unresolved, list “rice — type to confirm” and do not finalise the meal until it is resolved.
 
@@ -107,49 +109,7 @@ Quantity reconciliation: Before finalizing, verify that every Shared Prep total 
 
 ## Cooking Sheet Format (Multi-Component Meals)
 
-The printed cooking sheet for multi-component meals follows the per-dish format and governance rules in `recipe_governance_core.md` Section XI-B, with the additions and compressions below specific to multi-component output.
-
-**Format routing:** Apply Core Section XI-B. A "cooking sheet" or "printable version" request defaults to HTML; a "document," "Word," or "docx" request uses Word. Apply the corresponding protocol file in full.
-
----
-
-### Page Order
-
-**HTML:**
-1. Title + menu overview + Shared Prep + Shopping List
-2. T-minus timeline + workflow notes + Holding Chain
-3. Individual dishes in service order
-
-**Word:** Follow the page assignments in `recipe_output_docx_protocol.md`.
-
----
-
-### Shopping List Placement
-
-The cross-tab shopping list (per the Shopping List section above) appears immediately after the menu bullet list, before the T-minus timeline. It is the first substantive content on page 1 and the only point in the document where shopping and execution information overlap.
-
----
-
-### Meal Workflow Compression
-
-The full Meal Workflow as defined above is the source of truth for planning and review. The printed cooking sheet compresses it as follows:
-
-**Retained in full:**
-- T-minus timeline — extended to absorb the Final Plating Window. Plating steps (T-30 through T) are added as the final rows of the T-minus table. A one-line italic note after the table names the first failure if the plating window is missed.
-- Holding Chain — retained as a table (Component · Hold Strategy · Max Hold · Drift · Corrective).
-
-**Compressed to two short paragraphs under a single "Workflow Notes" block:**
-- Critical path statement
-- Failure prioritization (what yields to what)
-- Oven sequence (temperatures in order, transition time, which component waits)
-- Parallel/sequential summary
-
-**Omitted from the cooking sheet (present in the planning document only):**
-- Heat Resource Allocation table — key content folded into Workflow Notes
-- Oven Sequencing numbered list — folded into Workflow Notes
-- Parallel vs Sequential section — captured by T-minus structure
-- Failure Prioritization section — condensed into Workflow Notes
-- Final Plating Window section — absorbed into T-minus last rows
+The printed sheet follows `recipe_output_print_protocol.md`: §3.1 lists what of the Meal Workflow prints and what stays in the database, §4 the page plan. Two authoring rules follow from it: the Critical Path names what yields first if the timeline slips (the sheet prints no failure-prioritisation section), and the plating steps are the last rows of the T-minus timeline (the sheet prints no plating-window section).
 
 ---
 
