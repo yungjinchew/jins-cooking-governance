@@ -72,6 +72,8 @@ The Shared Prep block appears before the individual dish recipes in both the cha
 
 For every multi-component meal, generate a consolidated Shopping List after the Meal Workflow and Shared Prep. **For single-dish requests, the ingredient list within the recipe is sufficient — do not generate a separate Shopping List.**
 
+**Scope:** this is the Shopping List in the chat output. A printed shopping list (the app's print view, or a Word file) follows `recipe_output_print_protocol.md` §3.4 and is rendered from the saved rows, never retyped.
+
 **Format:** A cross-tabbed table with one column per dish and a Total column. Rows are grouped by section. This makes at-a-glance cross-referencing possible when shopping and confirms that quantities have been correctly consolidated across dishes.
 
 ```
