@@ -1,14 +1,14 @@
-# Recipe Output — Print Protocol (v1.2, 2026-10-30)
+# Recipe Output — Print Protocol (v1.3, 2026-10-31)
 
 > One method for every printed cooking sheet. The jins-kitchen print view implements it (`jins-kitchen.netlify.app/#/print/meal/<slug>` and `/#/print/dish/<slug>`; code in `jins-kitchen/tools/print-spec/print_region.js`). A Word file follows the same content rules and page plan. Load this file to print, to change the print view, or to build any printed sheet.
 >
-> **v1.2:** one stored CCP table format; a revised dish is brought up to §7 in the same save. **v1.1:** flagged readings lead the Measure on the day checklist; the shopping page carries purchase units and Before you shop notes. **v1.0:** print spec 1.0 (the print-view audit).
+> **v1.3:** stored renders made before print spec 1.0 are an archive, not linked in the app. **v1.2:** one stored CCP table format; a revised dish is brought up to §7 in the same save. **v1.1:** flagged readings lead the Measure on the day checklist; the shopping page carries purchase units and Before you shop notes. **v1.0:** print spec 1.0 (the print-view audit).
 
 ---
 
 ## 1. What prints
 
-"Print it", "print the recipe", "printable version", "cooking sheet" → the app's print view. It renders live from jins-kitchen, so it is always the saved version; nothing needs generating. A Word file only when Jin asks for Word (`recipe_output_docx_protocol.md`, which follows §3–§4 here). Stored PDFs are secondary: the Print button always opens the live view, and the print page links the latest stored PDF.
+"Print it", "print the recipe", "printable version", "cooking sheet" → the app's print view. It renders live from jins-kitchen, so it is always the saved version; nothing needs generating. A Word file only when Jin asks for Word (`recipe_output_docx_protocol.md`, which follows §3–§4 here). Stored PDFs are secondary: the Print button always opens the live view, and the print page links the latest stored PDF generated under this protocol. Renders made before print spec 1.0 (Word, PDF and hand-built HTML files dated before 30 Oct 2026) stay in `site/docs` as an archive and are not listed anywhere in the app.
 
 Two modes:
 - **Cooking sheet** (default): for the kitchen. §3 and §4.
