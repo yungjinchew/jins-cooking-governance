@@ -318,6 +318,7 @@ Hard failures — revise any recipe containing these:
 - [ ] No unjustified complexity
 - [ ] Root vegetables and produce: peel status stated explicitly for every item where it is non-obvious
 - [ ] Purchase-critical items carry their buying spec on the ingredient line, with a named "not" where the common substitute fails; none left only in the method or a sourcing note
+- [ ] An item whose size, weight or package cook time sets a timeline band (a cheese's weight, a pasta's package time) is bounded on its ingredient line and shopping row, with a named "not" for what falls outside the band
 - [ ] Pan preparation: fat type, flour/breadcrumb dusting, parchment use and placement, and parchment greasing all stated where applicable
 - [ ] Every doneness cue checked against the dish's own stated texture target — no cue indicating a different endpoint than the one targeted
 - [ ] No competing numeric metric stated alongside a controlling non-numeric trigger where placement is unreliable
@@ -329,6 +330,7 @@ Hard failures — revise any recipe containing these:
 - [ ] Designed-but-untested parameters labeled "planned," not "validated"; listed for post-cook confirmation; at most five per menu marked `measure: true`, each with what, when and instrument
 - [ ] Nutrition Estimate present: per-serving kcal / protein / carbs / fat, labelled an estimate
 - [ ] Meal: the T-minus timeline is one table, every row timed by a T-minus time, an earlier-day clock time or an offset from a marked event; holds and cooling checks are rows
+- [ ] Meal: the carry to the table has its own timeline rows, and every hold is counted to the moment its component reaches the table
 - [ ] If `recipe_governance_vault_signals.md` loaded: apply Vault self-check per that file
 - [ ] Diner profile line present; no safer-endpoint branch unless a vulnerable diner is declared
 - [ ] Food safety: every kept portion, freezer portions included, under the two-stage cooling check; reheats end at ≥74°C and hold at ≥60°C; room-temperature perishables within their cumulative 2 h (1 h above 32°C) count; undercooked beef or lamb bought as intact whole muscle
