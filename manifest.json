@@ -1,7 +1,7 @@
 {
   "framework": "Recipe Governance Framework",
-  "framework_version": "3.12",
-  "updated": "2026-10-31",
+  "framework_version": "3.13",
+  "updated": "2026-11-01",
   "canonical_source": "github",
   "notion_control_surface": "https://app.notion.com/p/3a1e0391ce6381dfb6dfc3b0c9e2e612",
   "change_queue": "https://app.notion.com/p/466bfaf3d8ed43dfa0e6a4c28caae2ef",
@@ -10,7 +10,7 @@
     {
       "id": "core",
       "file": "recipe_governance_core.md",
-      "version": "3.12",
+      "version": "3.13",
       "load_when": "Every recipe, dish, or cooking-method request",
       "always": true
     },
@@ -52,8 +52,8 @@
     {
       "id": "print_protocol",
       "file": "recipe_output_print_protocol.md",
-      "version": "1.3",
-      "date": "2026-10-31",
+      "version": "1.4",
+      "date": "2026-11-01",
       "load_when": "Printing a meal or dish, changing the app's print view, or building any printed sheet (Word or HTML)",
       "always": false
     },
@@ -68,8 +68,8 @@
     {
       "id": "data_protocol",
       "file": "recipe_output_data_protocol.md",
-      "version": "1.11",
-      "date": "2026-10-31",
+      "version": "1.12",
+      "date": "2026-11-01",
       "load_when": "Recipe stable / Menu stable, save for next time, any document build, any post-cook update — persist to jins-kitchen (Supabase directly, or the Notion Kitchen Inbox)",
       "always": false
     },

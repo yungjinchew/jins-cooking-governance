@@ -1,4 +1,4 @@
-# Recipe Governance — Core (v3.12)
+# Recipe Governance — Core (v3.13)
 
 > Split-file architecture: this file loads for every recipe, dish, or cooking-method request.
 > Add `recipe_governance_meal_workflow.md` for multi-component menus.
@@ -72,6 +72,7 @@ Two to four sentences: core flavor profile, texture targets, primary technique. 
 **Heat:** very low · low · medium-low · medium · medium-high · high
 **Time:** Use ranges where environment varies. State carryover and rest explicitly; never embed in pull temp.
 **Purchase spec:** Where the outcome depends on buying a specific variety, cut, grade, size, brand or source, the Ingredient List line states it as a buying instruction, separate from prep (e.g., "potato — buy waxy or all-purpose: Yukon Gold, Nicola; **not Russet**"). Where a common substitute on the shelf would fail the dish, name it as a "not" on the same line. The spec travels with the item to every shopping list built from the recipe; it is never left only in the method, the overview or a separate sourcing note.
+**Ingredient groups:** When a dish is built from parts made separately (a spice blend, a syrup, a dressing, a braising liquid, a crust and a filling), the Ingredient List gives one heading per part, in order of use, naming the part and, where it helps, its yield (e.g., "Pumpkin syrup · about 240 ml, for 8 lattes"), with that part's base ingredients under it. A part is never one line standing in for its ingredients ("braising liquid", "spice mix"). Where a part made earlier goes into a later one, it appears there once more as a single line marked "from above", with the amount used. Amounts given per serving (per mug, per plate) sit under a heading that says so. A dish of one part has no headings.
 
 ---
 
@@ -318,6 +319,7 @@ Hard failures — revise any recipe containing these:
 - [ ] No unjustified complexity
 - [ ] Root vegetables and produce: peel status stated explicitly for every item where it is non-obvious
 - [ ] Purchase-critical items carry their buying spec on the ingredient line, with a named "not" where the common substitute fails; none left only in the method or a sourcing note
+- [ ] A dish built from parts: one Ingredient List heading per part, its base ingredients under it, a part reused later shown there as one "from above" line; no part reduced to a single line
 - [ ] An item whose size, weight or package cook time sets a timeline band (a cheese's weight, a pasta's package time) is bounded on its ingredient line and shopping row, with a named "not" for what falls outside the band
 - [ ] Pan preparation: fat type, flour/breadcrumb dusting, parchment use and placement, and parchment greasing all stated where applicable
 - [ ] Every doneness cue checked against the dish's own stated texture target — no cue indicating a different endpoint than the one targeted

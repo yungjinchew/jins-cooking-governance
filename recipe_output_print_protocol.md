@@ -1,8 +1,8 @@
-# Recipe Output — Print Protocol (v1.3, 2026-10-31)
+# Recipe Output — Print Protocol (v1.4, 2026-11-01)
 
 > One method for every printed cooking sheet. The jins-kitchen print view implements it (`jins-kitchen.netlify.app/#/print/meal/<slug>` and `/#/print/dish/<slug>`; code in `jins-kitchen/tools/print-spec/print_region.js`). A Word file follows the same content rules and page plan. Load this file to print, to change the print view, or to build any printed sheet.
 >
-> **v1.3:** stored renders made before print spec 1.0 are an archive, not linked in the app. **v1.2:** one stored CCP table format; a revised dish is brought up to §7 in the same save. **v1.1:** flagged readings lead the Measure on the day checklist; the shopping page carries purchase units and Before you shop notes. **v1.0:** print spec 1.0 (the print-view audit).
+> **v1.4:** a dish built from parts prints a shaded heading row for each part in its ingredient table, and the words "not a purchase" stay off the sheet. **v1.3:** stored renders made before print spec 1.0 are an archive, not linked in the app. **v1.2:** one stored CCP table format; a revised dish is brought up to §7 in the same save. **v1.1:** flagged readings lead the Measure on the day checklist; the shopping page carries purchase units and Before you shop notes. **v1.0:** print spec 1.0 (the print-view audit).
 
 ---
 
@@ -37,7 +37,7 @@ T-minus timeline: every table whose first column holds three or more T− times 
 ### 3.2 Dish
 In order: name → timing line (the Yield & Timing section as one italic line) → role and equipment → overview (the first sentence of the Dish Overview) → ingredient table → method → CCP table → Adjust note.
 
-- Ingredient table: two columns, 67 / 33. Amounts with a space before the unit (280 g, 45 ml); spoon, cup and count quantities as fractions (¼ tsp, 1½ tbsp, ½); no "piece"; the alternative amount only when it adds information. Buying spec, prep note and "optional" beside the name.
+- Ingredient table: two columns, 67 / 33. Amounts with a space before the unit (280 g, 45 ml); spoon, cup and count quantities as fractions (¼ tsp, 1½ tbsp, ½); no "piece"; the alternative amount only when it adds information. Buying spec, prep note and "optional" beside the name. A dish built from parts (`dish_ingredient.section`, Core §III) gets a shaded heading row for each part, in order of use. The words "not a purchase" are not printed: a line the recipe makes reads "from above".
 - Left out of the method: Dish Overview and Yield & Timing (lifted into the header), Flavour architecture, Nutrition estimate, Scaling notes, superseded variants and corrections, and the method's own ingredient list when the ingredient table prints.
 - CCP tables print without an Outcome column. Tables stored as raw HTML get the same bold and severity colours as markdown tables.
 
@@ -74,6 +74,7 @@ The print code and this file change together and carry the same version: `PRINT.
 - Method headings use Core's names: Dish Overview, Yield & Timing, Flavor Architecture, Prep Phase, Active Cooking, Holding & Assembly, Critical Control Points, Adjustment Notes, Scaling Notes. No emoji headings.
 - The Dish Overview leads with one sentence that states the target; Yield & Timing is one line (yield · total · active · oven where used).
 - No ingredient list inside the method when ingredient rows are saved.
+- A dish built from parts carries its part heading in `section` on every ingredient line (Core §III Ingredient groups), so the table prints grouped.
 - Critical Control Points as a markdown table, `Class | Failure mode | Sensory cue | Recovery`, with the outcome written into the failure-mode cell (Core §VIII).
 - A dish revised for any reason is brought up to these rules in the same save: Core headings, the one-sentence overview, the one-line Yield & Timing, the CCP table format, no ingredient list in the method. The revision shows these changes with the rest; dishes are not rewritten in bulk.
 - The workflow's Critical Path names what yields first if the timeline slips, because the printed sheet carries no failure-prioritisation section; plating steps are the last T-minus rows.
