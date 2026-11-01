@@ -1,4 +1,4 @@
-# Recipe Governance — Core (v3.14)
+# Recipe Governance — Core (v3.15)
 
 > Split-file architecture: this file loads for every recipe, dish, or cooking-method request.
 > Add `recipe_governance_meal_workflow.md` for multi-component menus.
@@ -67,7 +67,7 @@ Two to four sentences: core flavor profile, texture targets, primary technique. 
 ## Section III — Measurement & Formatting
 
 **Salt:** Diamond Crystal kosher default. Specify type; justify alternatives. Give every salt addition in grams and teaspoons, with the teaspoon figure calibrated to Diamond Crystal (about 3 g per tsp); a weight alone is unusable without a scale. Where another salt may be used, note the conversion for the same weight: Morton kosher takes about 60% of the Diamond Crystal spoon volume, fine table or sea salt about half.
-**Liquids:** ml + cups · **Fats:** g + tbsp · **Temps:** °F + °C
+**Liquids:** under ¼ cup / 60 ml in tsp or tbsp, from ¼ cup in cups, with ml alongside; choose amounts that land on practical steps (¼ tsp, ½ tsp, 1 tsp, ½ tbsp, ¼ cup), so 40 ml of cream is written 2½ tbsp (40 ml) · **Fats:** g + tbsp · **Temps:** every temperature in °C and °F, including repeats, tables, scaling notes and the designed list. **Oven settings:** °C first, on a 5°C step (the Bosch oven moves in 5°C steps above 100°C), rounded up or down as the recipe needs, with °F alongside rounded to the nearest 5°F (e.g., 165°C / 330°F). Thermometer targets (a pull, a hold, a liquid ceiling) are readings, not settings, and stay exact.
 **Weights:** Always state in both imperial and metric. Format: lb / kg or oz / g. Examples: "2 lb / 900 g", "1 lb / 450 g", "4 oz / 115 g". Applies to all protein, produce, and dry ingredient quantities expressed by weight. Round metric to the nearest practical amount (5 g for small quantities; 25 g or 50 g for larger). Count-based quantities (eggs, cloves, stalks, slices) are exempt.
 **Heat:** very low · low · medium-low · medium · medium-high · high
 **Time:** Use ranges where environment varies. State carryover and rest explicitly; never embed in pull temp.
@@ -267,7 +267,7 @@ The full list, with the meal workflow's planning and check sections, is print pr
 
 **Per-dish layout sequence:** dish name → timing subtitle → one-sentence overview → ingredient table → recipe sections → CCPs → Adjust note.
 
-**Timing subtitle:** One compact italic line immediately below the dish name. Contains yield, total time, active time, and oven temperature where applicable. Example: *"Yield: 6–8 · Total: ~2 hr 45 min · Active: ~50 min · Oven: 325°F / 163°C"*
+**Timing subtitle:** One compact italic line immediately below the dish name. Contains yield, total time, active time, and oven temperature where applicable. Example: *"Yield: 6–8 · Total: ~2 hr 45 min · Active: ~50 min · Oven: 165°C / 330°F"*
 
 **Dish overview:** One sentence — flavor and texture target only. May be omitted for very simple supporting dishes (plain bread, simple condiment) where the title is self-explanatory.
 
@@ -337,7 +337,9 @@ Hard failures — revise any recipe containing these:
 - [ ] If `recipe_governance_vault_signals.md` loaded: apply Vault self-check per that file
 - [ ] Diner profile line present; no safer-endpoint branch unless a vulnerable diner is declared
 - [ ] Food safety: every kept portion, freezer portions included, under the two-stage cooling check; reheats end at ≥74°C and hold at ≥60°C; room-temperature perishables within their cumulative 2 h (1 h above 32°C) count; undercooked beef or lamb bought as intact whole muscle
-- [ ] A liquid with a temperature ceiling: heat setting and check cadence stated (every minute to about 20°C below the target, then every 30 s, stirring first; re-check 1 min after lifting off induction)
+- [ ] A liquid with a temperature ceiling: heat setting and check cadence stated (every minute to about 20°C / 36°F below the target, then every 30 s, stirring first; re-check 1 min after lifting off induction)
+- [ ] Every temperature in °C and °F, repeats, tables, scaling notes and the designed list included; every oven setting °C first on a 5°C step, °F to the nearest 5°F
+- [ ] Liquids under ¼ cup in tsp or tbsp and from ¼ cup in cups, ml alongside, at practical spoon or cup steps
 - [ ] Before stable: review loop run per `recipe_review_protocol.md` without being asked; Review log shown
 - [ ] At stable, save-for-later, or a cook log: persisted per `recipe_output_data_protocol.md`, and the save line stated
 
