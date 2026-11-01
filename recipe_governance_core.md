@@ -321,6 +321,7 @@ Hard failures — revise any recipe containing these:
 - [ ] Purchase-critical items carry their buying spec on the ingredient line, with a named "not" where the common substitute fails; none left only in the method or a sourcing note
 - [ ] A dish built from parts: one Ingredient List heading per part, its base ingredients under it, a part reused later shown there as one "from above" line; no part reduced to a single line
 - [ ] An item whose size, weight or package cook time sets a timeline band (a cheese's weight, a pasta's package time) is bounded on its ingredient line and shopping row, with a named "not" for what falls outside the band
+- [ ] Vessel fit: every vessel whose size sets a depth, a layer, a fill level or a cook time (a pie dish or Dutch oven, a pot for a batch, a mug or glass after foaming) is checked against what it must hold, its size bounded on the equipment line (e.g. 24–28 cm across the inside base, at least 350 ml), with a stop-and-re-plan step where the household vessel falls outside the bound
 - [ ] Pan preparation: fat type, flour/breadcrumb dusting, parchment use and placement, and parchment greasing all stated where applicable
 - [ ] Every doneness cue checked against the dish's own stated texture target — no cue indicating a different endpoint than the one targeted
 - [ ] No competing numeric metric stated alongside a controlling non-numeric trigger where placement is unreliable
