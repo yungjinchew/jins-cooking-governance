@@ -68,7 +68,7 @@
     {
       "id": "data_protocol",
       "file": "recipe_output_data_protocol.md",
-      "version": "1.15",
+      "version": "1.16",
       "date": "2026-11-02",
       "load_when": "Recipe stable / Menu stable, save for next time, any document build, any post-cook update — persist to jins-kitchen (Supabase directly, or the Notion Kitchen Inbox); also at the start of any cooking task with the Supabase connector, to load post-cook logs the app sent (§5)",
       "always": false
