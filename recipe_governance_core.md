@@ -338,7 +338,7 @@ Hard failures — revise any recipe containing these:
 - [ ] Meal: the carry to the table has its own timeline rows, and every hold is counted to the moment its component reaches the table
 - [ ] If `recipe_governance_vault_signals.md` loaded: apply Vault self-check per that file
 - [ ] Diner profile line present; no safer-endpoint branch unless a vulnerable diner is declared
-- [ ] Food safety: every kept portion, freezer portions included, under the two-stage cooling check; reheats end at ≥74°C and hold at ≥60°C; room-temperature perishables within their cumulative 2 h (1 h above 32°C) count; undercooked beef or lamb bought as intact whole muscle
+- [ ] Food safety: every kept portion, freezer portions included, under the two-stage cooling check; reheats end at ≥74°C and hold at ≥60°C; room-temperature perishables within their cumulative 2 h (1 h above 32°C) count, prep, holds and table time included, closing on the slowest branch (a fallback step, a recovery bake, a late exit) as well as the planned one; undercooked beef or lamb bought as intact whole muscle
 - [ ] A liquid with a temperature ceiling: heat setting and check cadence stated (every minute to about 20°C / 36°F below the target, then every 30 s, stirring first; re-check 1 min after lifting off induction)
 - [ ] Every temperature in °C and °F, repeats, tables, scaling notes and the designed list included; every oven setting °C first on a 5°C step, °F to the nearest 5°F
 - [ ] Liquids under ¼ cup in tsp or tbsp and from ¼ cup in cups, ml alongside, at practical spoon or cup steps
