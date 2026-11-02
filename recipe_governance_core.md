@@ -325,6 +325,7 @@ Hard failures — revise any recipe containing these:
 - [ ] Surplus disposal: a component that can be made beyond what the dish takes or the table eats (filling or topping that will not fit, a held batch that outlasts service) states its disposal at the step where the surplus appears: discard, ordinary leftovers into the fridge within 2 h of serving, or the two-stage cooling check if it is kept
 - [ ] Pan preparation: fat type, flour/breadcrumb dusting, parchment use and placement, and parchment greasing all stated where applicable
 - [ ] Every doneness cue checked against the dish's own stated texture target — no cue indicating a different endpoint than the one targeted
+- [ ] A dish whose parts finish at different rates (a crust under a filling, a base under a topping): a Primary doneness cue for each part, read where that part can be seen, and a recovery or an acceptable-degradation CCP where one part cannot wait for the other
 - [ ] No competing numeric metric stated alongside a controlling non-numeric trigger where placement is unreliable
 - [ ] Every taste/judge/adjust step placed after its input is observable; reserved ingredients stated as held at the earlier step
 - [ ] Every Primary cue performable at its step: no bare-hand contact with hot food, no reading a covered or submerged surface, no unlisted tool
