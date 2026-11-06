@@ -1,8 +1,8 @@
-# Recipe Output — Print Protocol (v1.4, 2026-11-01)
+# Recipe Output — Print Protocol (v1.5, 2026-11-06)
 
 > One method for every printed cooking sheet. The jins-kitchen print view implements it (`jins-kitchen.netlify.app/#/print/meal/<slug>` and `/#/print/dish/<slug>`; code in `jins-kitchen/tools/print-spec/print_region.js`). A Word file follows the same content rules and page plan. Load this file to print, to change the print view, or to build any printed sheet.
 >
-> **v1.4:** a dish built from parts prints a shaded heading row for each part in its ingredient table, and the words "not a purchase" stay off the sheet. **v1.3:** stored renders made before print spec 1.0 are an archive, not linked in the app. **v1.2:** one stored CCP table format; a revised dish is brought up to §7 in the same save. **v1.1:** flagged readings lead the Measure on the day checklist; the shopping page carries purchase units and Before you shop notes. **v1.0:** print spec 1.0 (the print-view audit).
+> **v1.5:** equipment (ingredient department Equipment) prints on its own line under the shopping list, never in the pantry check. **v1.4:** a dish built from parts prints a shaded heading row for each part in its ingredient table, and the words "not a purchase" stay off the sheet. **v1.3:** stored renders made before print spec 1.0 are an archive, not linked in the app. **v1.2:** one stored CCP table format; a revised dish is brought up to §7 in the same save. **v1.1:** flagged readings lead the Measure on the day checklist; the shopping page carries purchase units and Before you shop notes. **v1.0:** print spec 1.0 (the print-view audit).
 
 ---
 
@@ -45,7 +45,7 @@ In order: name → timing line (the Yield & Timing section as one italic line) �
 One checklist per sheet: the parameters still open in `designed_unvalidated` (a confirmed cook row closes one, the same rule as the `open_validations` view), grouped by dish, as tick · designed value · Observed (blank, to write in). When any open parameter on the sheet is marked `measure: true` (Core, Designed ≠ tested: at most five per menu), the checklist lists those, and one line counts the others ("N other open checks: see Log the cook in the app"). With none marked, it lists every open parameter. It is what the post-cook log needs (data protocol §5). A dish print carries its own at the end of the dish.
 
 ### 3.4 Shopping list
-Off by default; the phone list is the working list. When added on the print page it prints first, on its own page: the meal's Before you shop notes (`meal.shopping_notes`) above it, then tick · ingredient with its buying spec and any "not …" · what to buy · used in (by dish), with pantry checks on one line underneath. The what-to-buy cell shows the purchase unit (`buy_note`) when one dish uses the item, or the total with "per dish: …" when several do. A dish print never carries a shopping list; its ingredient table is the list.
+Off by default; the phone list is the working list. When added on the print page it prints first, on its own page: the meal's Before you shop notes (`meal.shopping_notes`) above it, then tick · ingredient with its buying spec and any "not …" · what to buy · used in (by dish), with pantry checks on one line underneath and equipment on a line of its own after them. The what-to-buy cell shows the purchase unit (`buy_note`) when one dish uses the item, or the total with "per dish: …" when several do. A dish print never carries a shopping list; its ingredient table is the list.
 
 ## 4. Page plan
 

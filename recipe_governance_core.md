@@ -1,4 +1,4 @@
-# Recipe Governance — Core (v3.15)
+# Recipe Governance — Core (v3.16)
 
 > Split-file architecture: this file loads for every recipe, dish, or cooking-method request.
 > Add `recipe_governance_meal_workflow.md` for multi-component menus.
@@ -73,6 +73,8 @@ Two to four sentences: core flavor profile, texture targets, primary technique. 
 **Time:** Use ranges where environment varies. State carryover and rest explicitly; never embed in pull temp.
 **Purchase spec:** Where the outcome depends on buying a specific variety, cut, grade, size, brand or source, the Ingredient List line states it as a buying instruction, separate from prep (e.g., "potato — buy waxy or all-purpose: Yukon Gold, Nicola; **not Russet**"). Where a common substitute on the shelf would fail the dish, name it as a "not" on the same line. The spec travels with the item to every shopping list built from the recipe; it is never left only in the method, the overview or a separate sourcing note.
 **Ingredient groups:** When a dish is built from parts made separately (a spice blend, a syrup, a dressing, a braising liquid, a crust and a filling), the Ingredient List gives one heading per part, in order of use, naming the part and, where it helps, its yield (e.g., "Pumpkin syrup · about 240 ml, for 8 lattes"), with that part's base ingredients under it. A part is never one line standing in for its ingredients ("braising liquid", "spice mix"). Where a part made earlier goes into a later one, it appears there once more as a single line marked "from above", with the amount used. Amounts given per serving (per mug, per plate) sit under a heading that says so. A dish of one part has no headings.
+
+**Method steps stand alone:** The app's step-by-step shows each step's bold lead as the step, so every numbered step opens with a bold lead that is the whole instruction: the action, the amount (on an ingredient's first use in the method, as the Ingredient List gives it), the vessel or tool, the heat, time or setting, and the stop cue (e.g., "**Add the 140 g / 10 tbsp frozen butter; process about 10 s, until uneven clumps like cottage cheese.**"). A second action that changes the food (add, tip, fold, cover, transfer) is a step of its own; where splitting would renumber steps that other text cites, it joins the lead after a semicolon. After the lead come only reasons, checks and branches: a branch reads "If …" or "X → …", a constraint reads "Do not …", never a bare instruction. A time-labelled step keeps the instruction inside the bold with its label (e.g., "**T-55 — Reduce the sauce to 300 ml / 1¼ cups.**").
 
 ---
 
@@ -342,6 +344,7 @@ Hard failures — revise any recipe containing these:
 - [ ] A liquid with a temperature ceiling: heat setting and check cadence stated (every minute to about 20°C / 36°F below the target, then every 30 s, stirring first; re-check 1 min after lifting off induction)
 - [ ] Every temperature in °C and °F, repeats, tables, scaling notes and the designed list included; every oven setting °C first on a 5°C step, °F to the nearest 5°F
 - [ ] Liquids under ¼ cup in tsp or tbsp and from ¼ cup in cups, ml alongside, at practical spoon or cup steps
+- [ ] Every method step opens with a bold lead that does the step on its own (action, amount at first use, vessel, setting, stop cue); nothing after a lead is a bare instruction (the app's #/stepcheck lists none for the dish)
 - [ ] Before stable: review loop run per `recipe_review_protocol.md` without being asked; Review log shown
 - [ ] At stable, save-for-later, or a cook log: persisted per `recipe_output_data_protocol.md`, and the save line stated
 
