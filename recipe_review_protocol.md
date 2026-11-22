@@ -1,6 +1,8 @@
-# Recipe Review Protocol (v1.2, 2026-10-30)
+# Recipe Review Protocol (v1.3, 2026-11-22)
 
 > Companion to `recipe_governance_core.md` Section XIV. Governs the **automatic second-opinion review** every recipe and menu goes through before it is declared stable. Jin does not ask for it and does not carry text between models: the session runs the loop itself.
+>
+> **v1.3 (2026-11-22):** carrying a change through means each place that acts on it can find it, not a copy in each place; the rule stays in its one home and method steps carry the trigger and a pointer; an adopted change that would push a step past the Core step budget is split or moved in the same revision; the reviewer raises an over-budget step as MINOR and does not ask for a rule to be repeated outside its home (§4, §5; Core 3.17 Step budget).
 >
 > **v1.2 (2026-10-30):** the reviewer checks that every safety control prints: one stated only in a section the printed sheet leaves out (print protocol §3.1, §3.2) is MATERIAL (§4, §5).
 >
@@ -86,9 +88,9 @@ Report only findings that would change the result on the plate, the safety of th
 
 Judge safety against the diner profile the draft states. Unless the profile declares a vulnerable diner (pregnant, immunocompromised, elderly or a young child), do not ask for a safer-endpoint alternative or a vulnerable-diner branch: a one-line statement of the trade-off is enough.
 
-Do not raise terminology, formatting, naming or documentation points; under framework Section XIV those are not material. Where a safety control sits is not a documentation point.
+Do not raise terminology, formatting, naming or documentation points; under framework Section XIV those are not material. Where a safety control sits is not a documentation point. Step length is the one formatting point to raise, as MINOR: a method step whose bold lead runs over 30 words or holds two or more semicolons, or that runs over 70 words in all, with the split you propose.
 
-If a PRIOR DECISION LOG is supplied, first check that every adopted change, and every branch, fallback or alternative it created, is carried through each place the component appears (ingredient line, shopping row, method, timeline at both ends of every band, holding chain, CCPs, storage), that any safety control it adds appears where the sheet prints it (method, CCPs, holding chain or a timeline row), and that it closes in the timeline; report any failure there before other findings. Do not re-raise a point that was declined with a stated reason unless that reason is factually wrong, and if so say exactly why.
+If a PRIOR DECISION LOG is supplied, first check that every adopted change, and every branch, fallback or alternative it created, is carried through each place the component appears (ingredient line, shopping row, method, timeline at both ends of every band, holding chain, CCPs, storage), that any safety control it adds appears where the sheet prints it (method, CCPs, holding chain or a timeline row), and that it closes in the timeline; report any failure there before other findings. Carried through means each place that acts on the change can find it: a rule that lives in its one home (the Critical Path for what moves when the clock slips, a CCP for a recovery, Holding & Assembly for a hold) needs only a pointer elsewhere, so do not ask for it to be copied into each step. Do not re-raise a point that was declined with a stated reason unless that reason is factually wrong, and if so say exactly why.
 
 If the input is marked CONFIRMATION PASS, check only that the changes adopted after the previous round are implemented and close in the timeline. Raise nothing else unless one of those changes caused it.
 
@@ -109,7 +111,7 @@ Sort **every** finding into exactly one of:
 
 Precedence when they conflict: Core safety rules, then Jin's explicit instructions in this conversation, then the framework, then the reviewer. A `[MATERIAL]` finding is never dropped silently. Apply the adopted changes to the draft, re-run the Core self-check on what changed, and re-verify any timeline arithmetic the change touches.
 
-**Propagation check (before the next round).** For every adopted change that adds or alters a branch, fallback, alternative or conditional path, trace it through every place the component appears: ingredient line, shopping row, method, T-minus timeline at both ends of every band, holding chain, CCPs and storage. A safety control it adds must land where the sheet prints it: the method, a CCP, the holding chain or a timeline row. Prefer bounding the input over adding a branch (buy a 2–3 cm steak; use a pot with a flat base of at least 20 cm), per the Core complexity budget. A branch that cannot be closed in the timeline is removed or replaced by such a bound, not sent to the reviewer open. Note "propagated" in the decision-log entry once the check is done.
+**Propagation check (before the next round).** For every adopted change that adds or alters a branch, fallback, alternative or conditional path, trace it through every place the component appears: ingredient line, shopping row, method, T-minus timeline at both ends of every band, holding chain, CCPs and storage. A safety control it adds must land where the sheet prints it: the method, a CCP, the holding chain or a timeline row. Prefer bounding the input over adding a branch (buy a 2–3 cm steak; use a pot with a flat base of at least 20 cm), per the Core complexity budget. A branch that cannot be closed in the timeline is removed or replaced by such a bound, not sent to the reviewer open. Propagating means every place that acts on the change can find it, not a copy in each: the rule sits in its one home (Core §III Step budget) and a method step carries only its trigger and a pointer. An adopted change that would push a step past the step budget is split or moved in the same revision. Note "propagated" in the decision-log entry once the check is done.
 
 Keep a cumulative **decision log**: round · finding (one line) · decision · what changed or why declined.
 

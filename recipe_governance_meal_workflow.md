@@ -1,4 +1,4 @@
-# Recipe Governance — Meal Workflow (v3.11)
+# Recipe Governance — Meal Workflow (v3.12)
 
 > Load in addition to `recipe_governance_core.md` when generating two or more components served together.
 
@@ -10,7 +10,7 @@ Produce a standalone Meal Workflow document in addition to individual recipes. T
 
 **Workflow complexity budget:** Each added component, garnish, or workflow branch must solve a distinct failure mode or materially improve the eating experience proportional to its operational cost.
 
-**Critical path:** Identify the single sequence governing final plating timing. All other components align to it. State it explicitly at the top of the Meal Workflow.
+**Critical path:** Identify the single sequence governing final plating timing. All other components align to it. State it explicitly at the top of the Meal Workflow. It ends with the meal's one **Running late** rule: what moves and what stays when a step runs late, and from which event each limit is counted. Method steps, CCPs and timeline rows point to it ("→ Critical path, Running late") rather than restating it (Core §III Step budget, v3.12, 22 Nov 2026).
 
 **Failure prioritization:** Identify which component degrades first if timing slips; state explicitly what to protect. Decide in advance (e.g., "pork crust is the critical path anchor — mash temperature yields if the sear runs long").
 
