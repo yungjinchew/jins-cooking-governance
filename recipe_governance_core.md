@@ -1,4 +1,4 @@
-# Recipe Governance — Core (v3.17)
+# Recipe Governance — Core (v3.18)
 
 > Split-file architecture: this file loads for every recipe, dish, or cooking-method request.
 > Add `recipe_governance_meal_workflow.md` for multi-component menus.
@@ -77,6 +77,8 @@ Two to four sentences: core flavor profile, texture targets, primary technique. 
 **Method steps stand alone:** The app's step-by-step shows each step's bold lead as the step, so every numbered step opens with a bold lead that is the whole instruction: the action, the amount (on an ingredient's first use in the method, as the Ingredient List gives it), the vessel or tool, the heat, time or setting, and the stop cue (e.g., "**Add the 140 g / 10 tbsp frozen butter; process about 10 s, until uneven clumps like cottage cheese.**"). A second action that changes the food (add, tip, fold, cover, transfer) is a step of its own, even when splitting renumbers steps: update every reference in the same save, and cite a step by its time label where it has one. After the lead come only reasons, checks and branches: a branch reads "If …" or "X → …", a constraint reads "Do not …", never a bare instruction. A time-labelled step keeps the instruction inside the bold with its label (e.g., "**T-55 — Reduce the sauce to 300 ml / 1¼ cups.**").
 
 **Step budget (v3.17, 22 Nov 2026):** a step must read at a glance on a phone. The lead is one action, or two that happen without a pause, in at most 30 words with at most one semicolon; the whole step, lead and tail, is at most 70 words (words as the step check counts them, units included). After the lead come one reason and only the branches the cook acts on at that step, each in one short sentence. Everything else has one home, and the step points to it: what moves when the clock slips → the meal workflow's Critical Path ("→ Critical path, Running late"); recoveries → the CCP table ("→ CCP"); room-temperature limits and holds → Holding & Assembly; equipment and fit checks before buying → the meal's Before you shop notes; salt-type conversions → the ingredient line where it carries them. A step over budget is split or its text moved, never shortened by dropping a cue, an amount or a safety branch. The step check (`jins-kitchen/tools/step-check`, and More → Step check in the app) flags a lead over 30 words, a lead with two or more semicolons and a step over 70 words. Why: by Nov 2026, 46 of 107 saved dishes had steps of 100–280 words, built by semicolon-chained leads and by review rounds copying the same running-late rule into each step it touched.
+
+**Holding & Assembly as steps (v3.18, 22 Nov 2026):** Holding & Assembly is numbered steps under the same lead and budget rules, one hold, the plating or the leftovers to a step, so it reads in the app's step view and on the sheet; a revised dish is brought to this in the same save. The printed blocks around the method have limits of their own (print protocol §7).
 
 ---
 
@@ -265,15 +267,15 @@ Runtime adaptation: The output protocols define mandatory structure, pagination 
 
 The full list, with the meal workflow's planning and check sections, is print protocol §3.1–§3.2.
 
-**CCP table:** stored as `Class | Failure mode | Sensory cue | Recovery` (Section VIII); a table in an older layout prints without its Outcome column (print protocol §3.2).
+**CCP table:** stored as `Class | Failure mode | Sensory cue | Recovery` (Section VIII); a table in an older layout prints without its Outcome column (print protocol §3.2). Each cell reads at the stove: the failure mode at most 25 words, the recovery at most 40 (print protocol §7).
 
 **Adjustment Notes:** Not a separate table. Rendered as a single italic sentence or short paragraph immediately after the Holding & Assembly section. Prefix: *"Adjust: …"*
 
 **Per-dish layout sequence:** dish name → timing subtitle → one-sentence overview → ingredient table → recipe sections → CCPs → Adjust note.
 
-**Timing subtitle:** One compact italic line immediately below the dish name. Contains yield, total time, active time, and oven temperature where applicable. Example: *"Yield: 6–8 · Total: ~2 hr 45 min · Active: ~50 min · Oven: 165°C / 330°F"*
+**Timing subtitle:** One compact italic line immediately below the dish name, at most 30 words; it prints once, in the dish header (print protocol §3.2). Contains yield, total time, active time, and oven temperature where applicable. Example: *"Yield: 6–8 · Total: ~2 hr 45 min · Active: ~50 min · Oven: 165°C / 330°F"*
 
-**Dish overview:** One sentence — flavor and texture target only. May be omitted for very simple supporting dishes (plain bread, simple condiment) where the title is self-explanatory.
+**Dish overview:** One sentence of at most 30 words — flavor and texture target only. May be omitted for very simple supporting dishes (plain bread, simple condiment) where the title is self-explanatory.
 
 **Page plan:** a main or soup starts a page; every other dish follows on and is kept whole (print protocol §4).
 
@@ -346,7 +348,7 @@ Hard failures — revise any recipe containing these:
 - [ ] A liquid with a temperature ceiling: heat setting and check cadence stated (every minute to about 20°C / 36°F below the target, then every 30 s, stirring first; re-check 1 min after lifting off induction)
 - [ ] Every temperature in °C and °F, repeats, tables, scaling notes and the designed list included; every oven setting °C first on a 5°C step, °F to the nearest 5°F
 - [ ] Liquids under ¼ cup in tsp or tbsp and from ¼ cup in cups, ml alongside, at practical spoon or cup steps
-- [ ] Every method step opens with a bold lead that does the step on its own (action, amount at first use, vessel, setting, stop cue); nothing after a lead is a bare instruction; every step within the step budget (lead ≤30 words with at most one semicolon, step ≤70 words; the app's #/stepcheck lists none for the dish)
+- [ ] Every method step opens with a bold lead that does the step on its own (action, amount at first use, vessel, setting, stop cue); nothing after a lead is a bare instruction; every step within the step budget (lead ≤30 words with at most one semicolon, step ≤70 words; the app's #/stepcheck lists none for the dish); Holding & Assembly as numbered steps; overview sentence and timing line ≤30 words; CCP failure mode ≤25 and recovery ≤40
 - [ ] Before stable: review loop run per `recipe_review_protocol.md` without being asked; Review log shown
 - [ ] At stable, save-for-later, or a cook log: persisted per `recipe_output_data_protocol.md`, and the save line stated
 

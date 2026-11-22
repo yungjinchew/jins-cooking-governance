@@ -1,6 +1,8 @@
-# Recipe Review Protocol (v1.3, 2026-11-22)
+# Recipe Review Protocol (v1.4, 2026-11-22)
 
 > Companion to `recipe_governance_core.md` Section XIV. Governs the **automatic second-opinion review** every recipe and menu goes through before it is declared stable. Jin does not ask for it and does not carry text between models: the session runs the loop itself.
+>
+> **v1.4 (2026-11-22):** the reviewer also raises, as MINOR, a timeline row that restates a dish step instead of pointing to it, and any printed block over the print limits (print protocol §7).
 >
 > **v1.3 (2026-11-22):** carrying a change through means each place that acts on it can find it, not a copy in each place; the rule stays in its one home and method steps carry the trigger and a pointer; an adopted change that would push a step past the Core step budget is split or moved in the same revision; the reviewer raises an over-budget step as MINOR and does not ask for a rule to be repeated outside its home (§4, §5; Core 3.17 Step budget).
 >
@@ -88,7 +90,7 @@ Report only findings that would change the result on the plate, the safety of th
 
 Judge safety against the diner profile the draft states. Unless the profile declares a vulnerable diner (pregnant, immunocompromised, elderly or a young child), do not ask for a safer-endpoint alternative or a vulnerable-diner branch: a one-line statement of the trade-off is enough.
 
-Do not raise terminology, formatting, naming or documentation points; under framework Section XIV those are not material. Where a safety control sits is not a documentation point. Step length is the one formatting point to raise, as MINOR: a method step whose bold lead runs over 30 words or holds two or more semicolons, or that runs over 70 words in all, with the split you propose.
+Do not raise terminology, formatting, naming or documentation points; under framework Section XIV those are not material. Where a safety control sits is not a documentation point. Length is the one formatting point to raise, as MINOR, with the split or pointer you propose: a method step whose bold lead runs over 30 words or holds two or more semicolons, or that runs over 70 words in all; a timeline row over 30 words, or one that restates a dish step instead of pointing to it; a holding-chain cell over 15 words; a CCP failure mode over 25 words or recovery over 40; a workflow paragraph over 60 words.
 
 If a PRIOR DECISION LOG is supplied, first check that every adopted change, and every branch, fallback or alternative it created, is carried through each place the component appears (ingredient line, shopping row, method, timeline at both ends of every band, holding chain, CCPs, storage), that any safety control it adds appears where the sheet prints it (method, CCPs, holding chain or a timeline row), and that it closes in the timeline; report any failure there before other findings. Carried through means each place that acts on the change can find it: a rule that lives in its one home (the Critical Path for what moves when the clock slips, a CCP for a recovery, Holding & Assembly for a hold) needs only a pointer elsewhere, so do not ask for it to be copied into each step. Do not re-raise a point that was declined with a stated reason unless that reason is factually wrong, and if so say exactly why.
 
