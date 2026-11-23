@@ -1,7 +1,7 @@
 {
   "framework": "Recipe Governance Framework",
-  "framework_version": "3.18",
-  "updated": "2026-11-22",
+  "framework_version": "3.19",
+  "updated": "2026-11-23",
   "canonical_source": "github",
   "notion_control_surface": "https://app.notion.com/p/3a1e0391ce6381dfb6dfc3b0c9e2e612",
   "change_queue": "https://app.notion.com/p/466bfaf3d8ed43dfa0e6a4c28caae2ef",
@@ -10,7 +10,7 @@
     {
       "id": "core",
       "file": "recipe_governance_core.md",
-      "version": "3.18",
+      "version": "3.19",
       "load_when": "Every recipe, dish, or cooking-method request",
       "always": true
     },
